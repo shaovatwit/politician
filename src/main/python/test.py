@@ -1,6 +1,6 @@
-import data.postgres_connection
+from data.connect import *
 
-con, cur, db = data_schema.get_db()
+con, cur, db = postgres_connection.get_db()
 
 def setup():
     insert_politician = 'INSERT INTO Politician (politician_id, name, gov_link, campaign_link, email, phone, address, party, date_elected, biography, district) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);'

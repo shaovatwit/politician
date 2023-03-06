@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Local Politicial Data Aggregator</title>
+    <link rel="stylesheet" href="main.css">
+    <meta description="A website to find information about various city's politicians">
+    <h1>Local Politician Data Aggregator</h1>
+</head>
+<body>
+    <form action="#">
+        <!-- Ideally this form would only redircct to a new page once you click go -->
+        <label for="cityID">Select a city:</label>
+        <select name="city" id="city" onchange="location = this.value;">
+            <option value="cityChoose" hidden>Choose a city to learn more</option >
+            <option value="/boston.html">Boston, Massachusetts</option>
+            <option value="/losangeles.html">Lose Angeles, California</option>
+            <option value="/newyorkcity.html">New York City, New York</option>
+        </select>
+
+        <input type="submit" value="Go" >
+
+    </form>
+
+
+</body>
+<footer>
+    <p>Sam Ellington and Vianne Shao :&#41</p>
+
+</footer>

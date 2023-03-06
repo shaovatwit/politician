@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta description="Page for Boston Information">
+    <title>Boston, Massachusetts</title>
+    <h1>Local Politician Data Aggregator</h1>
+    <a href="/main.html">Home</a> <a href="/about.html">About</a>
+</head>
+<body>
+    <h2 id="cityID">Boston, Massachusetts</h2>
+
+    <form action="#">
+        <label for="office">Choose an office:</label>
+        <select name="office" id="">
+            <option value="officeChoose" hidden>Choose an office</option>
+            <option value="mayor">Mayor of Boston</option>
+            <option value="citycouncil">City Council</option>
+
+        </select>
+    </form>
+    <aside id="sidebar">
+        <h3>Helpful Links</h3>
+        <li>
+            <ul><a href="https://www.boston.gov/">Official Boston Website</a></ul>
+            <ul id="bostonDepartments">
+                <form action="#">
+                    <select name="department" id="department" onchange="location = this.value;">
+                        <option value="departmentChoose" hidden>Departments</option >
+                        <option value="https://www.boston.gov/departments/age-strong-commission">Age Strong Commission</option>
+                        <option value="https://www.boston.gov/departments/analytics-team">Analytics Team</option>
+                        <option value="https://www.boston.gov/departments/animal-care-and-control">Animal Care and Control</option>
+                        <option value="https://www.boston.gov/departments/archaeology">Archaeology</option>
+                        <option value="https://www.boston.gov/departments/archives-and-records-management">Archives and Records Management</option>
+                        <option value="https://www.boston.gov/departments/arts-and-culture">Arts and Culture</option>
+                        <option value="https://www.boston.gov/departments/assessing">Assessing</option>
+                        <option value="https://www.boston.gov/departments/auditing">Auditing</option>
+                        <option value="https://www.boston.gov/departments/black-male-advancement">Black Male Advancement</option>
+                        <option value="https://www.boston.gov/departments/boston-311">Boston 311</option>
+                        <option value="https://www.boston.gov/departments/boston-bikes">Boston Bikes</option>
+                        <option value="https://www.boston.gov/departments/boston-centers-youth-families">Boston Centers for Youth and Families</option>
+                        <option value="https://www.boston.gov/departments/boston-human-rights-commission">Boston Human Rights Commission</option>
+                        <option value="https://www.boston.gov/government/cabinets/boston-public-health-commission">Boston Public Health Commission</option>
+                        <option value="https://www.boston.gov/departments/broadband-and-cable">Broadband and Cable</option>
+                        <option value="https://www.boston.gov/departments/budget">Budget</option>
+                        <option value="https://www.boston.gov/departments/city-clerk">City Clerk</option>
+                        <option value="https://www.boston.gov/departments/city-council">City Council</option>
+                        <option value="https://www.boston.gov/departments/civic-organizing">Civic Organizing</option>
+                        <option value="https://www.boston.gov/government/cabinets/community-engagement">Community Engagement</option>
+                        <option value="https://www.boston.gov/departments/consumer-affairs">Consumer Affairs</option>
+                        <option value="https://www.boston.gov/departments/cybersecurity-team">Cybersecurity Team</option>
+                        <option value="https://www.boston.gov/departments/digital-services-team">Digital Services Team</option>
+                        <option value="https://www.boston.gov/departments/disabilities-commission">Disabilities Commission</option>
+                        <option value="https://www.boston.gov/departments/diversity">Diversity</option>
+                        <option value="https://www.boston.gov/departments/early-childhood">Early Childhood</option>
+                        <option value="https://www.boston.gov/government/cabinets/economic-opportunity-and-inclusion">Economic Opportunity and Inclusion</option>
+                        <option value="https://www.boston.gov/departments/election">Election</option>
+                        <option value="https://www.boston.gov/departments/emergency-management">Emergency Management</option>
+                        <option value="https://www.boston.gov/departments/emergency-medical-services">Emergency Medical Services</option>
+                        <option value="https://www.boston.gov/departments/entertainment-licensing">Entertainment Licensing</option>
+                        <option value="https://www.boston.gov/departments/environment">Environment</option>
+                        <option value="https://www.boston.gov/government/cabinets/equity-and-inclusion-cabinet">Equity and Inclusion Cabinet</option>
+                        <option value="https://www.boston.gov/departments/fair-housing-and-equity">Fair Housing and Equity</option>
+                        <option value="https://www.boston.gov/departments/fire-operations">Fire Operations</option>
+                        <option value="https://www.boston.gov/departments/fire-prevention">Fire Prevention</option>
+                        <option value="https://www.boston.gov/departments/food-justice">Food Justice</option>
+                        <option value="https://www.boston.gov/departments/growboston">GrowBoston</option>
+                        <option value="https://www.boston.gov/departments/historic-preservation">Historic Preservation</option>
+                        <option value="https://www.boston.gov/departments/housing">Housing</option>
+                        <option value="https://www.boston.gov/departments/housing-authority">Housing Authority</option>
+                        <option value="https://www.boston.gov/departments/human-resources">Human Resources</option>
+                        <option value="https://www.boston.gov/government/cabinets/human-services">Human Services</option>
+                        <option value="https://www.boston.gov/departments/immigrant-advancement">Immigrant Advancement</option>
+                        <option value="https://www.boston.gov/departments/innovation-and-technology">Innovation and Technology</option>
+                        <option value="https://www.boston.gov/departments/inspectional-services">Inspectional Services</option>
+                        <option value="https://www.boston.gov/departments/intergovernmental-relations">Intergovernmental Relations</option>
+                        <option value="https://www.boston.gov/departments/labor-relations">Labor Relations</option>
+                        <option value="https://www.boston.gov/departments/landmarks-commission">Landmarks Commission</option>
+                        <option value="https://www.boston.gov/departments/language-and-communications-access">Languages and Communications Access</option>
+                        <option value="https://www.boston.gov/departments/law">Law</option>
+                        <option value="https://www.boston.gov/departments/lgbtq-advancement">LGBTQ+ Advancement</option>
+                        <option value="https://www.boston.gov/departments/library">Library</option>
+                        <option value="https://www.boston.gov/departments/licensing-board">Licensing Board</option>
+                        <option value="https://www.boston.gov/departments/mayors-office">Mayor's Office</option>
+                        <option value="https://www.boston.gov/departments/neighborhood-services">Neighborhood Services</option>
+                        <option value="https://www.boston.gov/departments/new-urban-mechanics">New Urban Mechanics</option>
+                        <option value="https://www.boston.gov/government/cabinets/operations-cabinet">Operations Cabinet</option>
+                        <option value="https://www.boston.gov/departments/parking-clerk">Parking Clerk</option>
+                        <option value="https://www.boston.gov/departments/parks-and-recreation">Parks and Recreation</option>
+                        <option value="https://www.boston.gov/departments/planning-development-agency">Planning and Development Agency</option>
+                        <option value="https://www.boston.gov/departments/police">Police</option>
+                        <option value="https://www.boston.gov/departments/police-accountability-and-transparency">Police Accountability and Transparency</option>
+                        <option value="https://www.boston.gov/departments/press-office">Press Office</option>
+                        <option value="https://www.boston.gov/departments/procurement">Procurement</option>
+                        <option value="https://www.boston.gov/departments/property-management">Property Management</option>
+                        <option value="https://www.boston.gov/departments/public-facilities">Public Facilities</option>
+                        <option value="https://www.boston.gov/departments/public-records">Public Records</option>
+                        <option value="https://www.boston.gov/departments/public-safety">Public Safety</option>
+                        <option value="https://www.boston.gov/departments/public-works">Public Works</option>
+                        <option value="https://www.boston.gov/departments/registry-birth-death-and-marriage">Registry&#58 Birth, Death, and Marriage</option>
+                        <option value="https://www.boston.gov/departments/resilience-and-racial-equity">Resilience and Racial Equity</option>
+                        <option value="https://www.boston.gov/departments/retirement">Retiremen</option>
+                        <option value="https://www.boston.gov/departments/returning-citizens">Returning Citizens</option>
+                        <option value="https://www.boston.gov/departments/schools">Schools</option>
+                        <option value="https://www.boston.gov/departments/small-business-development">Small Business Development</option>
+                        <option value="https://www.boston.gov/departments/supplier-and-workforce-diversity">Supplier and Workforce Diversity</option>
+                        <option value="https://www.boston.gov/departments/tax-collection">Tax Collection</option>
+                        <option value="https://www.boston.gov/departments/tourism-sports-and-entertainment">Tourism, Sports, and Entertainment</option>
+                        <option value="https://www.boston.gov/departments/transportation">Transportation</option>
+                        <option value="https://www.boston.gov/departments/treasury">Treasury</option>
+                        <option value="https://www.boston.gov/departments/veterans-services">Veterans Services</option>
+                        <option value="https://www.boston.gov/departments/water-and-sewer-commission">Water and Sewer Commission</option>
+                        <option value="https://www.boston.gov/departments/womens-advancement">Women's Advancement</option>
+                        <option value="https://www.boston.gov/departments/workforce-development">Workforce Development</option>
+                        <option value="https://www.boston.gov/departments/youth-employment-and-opportunity">Youth Employment and Opportunity</option>
+                        <option value="https://www.boston.gov/departments/youth-engagement-and-advancement">Youth Engagement and Advancement</option>
+
+                    </select>
+                </form>
+            </ul>
+            <ul id="neighborhood"><a href="https://www.boston.gov/my-neighborhood">My Neighborhood</a></ul>
+            <ul><a href="https://boston.maps.arcgis.com/apps/instant/lookup/index.html?appid=fbd99773425244b3888aa7077e7c8cfd">My Neighborhood Interactive Representation Map</a></ul>
+            <ul><a href="https://www.cityofboston.gov/maps/pdfs/ward_and_precincts.pdf">Wards and Precincts Map</a></ul>
+
+        </li>
+    </aside>
+</body>
+<footer>
+    <p>Sam Ellington and Vianne Shao :&#41</p>
+</footer>

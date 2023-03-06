@@ -11,6 +11,13 @@ def index(request):
     return HttpResponse("Local Politician Data Aggregator.")
 
 #############################################################
+# Display Homepage #
+#############################################################
+
+def homepage(request):
+    return render(request, 'main.html')
+
+#############################################################
 # Get politician's information from their website url input #
 #############################################################
 

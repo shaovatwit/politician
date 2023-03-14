@@ -11,7 +11,7 @@ class Politician(models.Model):
         address = models.CharField(max_length=100, blank=True)
         party = models.CharField(max_length=25)
         date_elected = models.DateField()
-        biography = models.CharField(max_length=100)
+        biography = models.CharField(max_length=10000)
         district = models.CharField(max_length=100)
 
 class City(models.Model):
@@ -20,18 +20,26 @@ class City(models.Model):
         state = models.CharField(max_length=25)
         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
 
+#Department model
+#id
+#name
+#url
+#city
+
 class Office(models.Model):
         office_id = models.AutoField(primary_key=True)
         name = models.CharField(max_length=100)
         role = models.CharField(max_length=100)
         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
     
+#To be chucked.
 class Issue(models.Model):
         issue_id = models.AutoField(primary_key=True)
         name = models.CharField(max_length=100)
         copy = models.CharField(max_length=100)
         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
 
+#To be chucked.
 class Committee(models.Model):
         committee_id = models.AutoField(primary_key=True)
         name = models.CharField(max_length=100)

@@ -6,13 +6,13 @@ from bs4 import BeautifulSoup
 
 from . import models
 
-# Create your views here.
-def index(request):
-    return HttpResponse("Local Politician Data Aggregator.")
+# # Create your views here.
+# def index(request):
+#     return HttpResponse("Local Politician Data Aggregator.")
 
-#############################################################
-# Display Homepage #
-#############################################################
+#########################
+#    Display Homepage   #
+#########################
 
 def homepage(request):
     return render(request, 'main.html')

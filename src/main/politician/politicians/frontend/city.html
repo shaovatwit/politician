@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta description="Page for city_id.name">
+        <link rel="stylesheet" href="index.css">
+        <title>city_id.name, city_id.state</title>
+    </head>
+    <header>
+        <h1>Local Politician Data Aggregator</h1>
+        <a href="/main.html">Home</a> <a href="/about.html">About</a>
+    </header>
+    <body>
+        <main>
+            <h2 id="cityID">city_id.name, city_id.state</h2>
+            <form action="#">
+                <label for="office" required>Choose an office:</label>
+                <select name="office" id="">
+                    <option value="officeChoose" hidden>Choose an office</option>
+                    <option value="mayor">Mayor</option>
+                    <optgroup label="City Council">
+                        <option value="atLarge1">PLACEHOLDER</option>
+                        <option value="atLarge2">PLACEHOLDER</option>
+                        <option value="atLarge3">PLACEHOLDER</option>
+                        <option value="atLarge4">PLACEHOLDER</option>
+                        <option value="district1">PLACEHOLDER</option>
+                        <option value="district2">PLACEHOLDER</option>
+                        <option value="district3">PLACEHOLDER</option>
+                        <option value="district4">PLACEHOLDER</option>
+                        <option value="district5">PLACEHOLDER</option>
+                        <option value="district6">PLACEHOLDER</option>
+                        <option value="district7">PLACEHOLDER</option>
+                        <option value="district8">PLACEHOLDER</option>
+                        <option value="district9">PLACEHOLDER</option>
+    
+                    </optgroup>
+                </select>
+                <table class="politician table" border="1">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Office</td>
+                            <td>District</td>
+                            <td>Boston.gov link</td>
+                            <td>Campaign Link</td>
+                            <td>Party</td>
+                            <td>Email</td>
+                            <td>Phone</td>
+                            <td>Address</td>
+                            <td>Date Elected</td>
+                            <td>Biography</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>politician_id.name</td>
+                            <td>politician_id.office_id.name</td>
+                            <td>politician_id.district</td>
+                            <td>politician_id.gov_link</td>
+                            <td>politician_id.campaign_link</td>
+                            <td>politician_id.party</td>
+                            <td>politician_id.email</td>
+                            <td>politician_id.phone</td>
+                            <td>politician_id.address</td>
+                            <td>politician_id.date_elected</td>
+                            <td>politician_id.biography</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </main>
+
+
+        <aside id="sidebar">
+            <h3>Helpful Links</h3>
+            <li>
+                <ul><a href="https://www.city.gov/">Official cityName Website</a></ul>
+                <ul id="cityDepartments">
+                    <form action="#">
+                        <select name="department" id="department" onchange="location = this.value;">
+                            <option value="departmentChoose" hidden>Departments</option >
+                            <option value="">Department1</option>
+                            <option value="">Department 2</option>
+                            <option value="">Department 3</option>
+
+                        </select>
+                    </form>
+                </ul>
+                <ul id="neighborhood"><a href="">My Neighborhood</a></ul>
+    
+            </li>
+        </aside>
+    </body>
+    <footer>
+        <p>Sam Ellington and Vianne Shao &#58;&#41</p>
+    </footer>
+</html>

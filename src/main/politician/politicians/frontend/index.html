@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta description="Homepage for the website">
+        <title>Local Politicial Data Aggregator</title>
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    </head>
+    <header>
+        <h1>Local Politician Data Aggregator</h1>
+        <a href="/index.html">Home</a> <a href="/information.html">About</a>
+    </header>
+    <body>
+        <main>
+            <form>
+                <label for="cityID">Select a city:</label>
+                <select name="city" id="city" >
+                    <option value="cityChoose" hidden>Choose a city to learn more</option >
+                    <option value="/boston.html">Boston, MA</option>
+                    <option value="/city.html">city_id.name, city_id.state</option>
+                    <option value="/city.html">city_id.name, city_id.state</option>
+                </select>
+                <input type="button" value="Go" onclick="location = city.value;">
+
+            </form>
+        </main>
+    </body>
+    <footer>
+        <p>Sam Ellington and Vianne Shao &#58&#41</p>
+    
+    </footer>
+</html>

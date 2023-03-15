@@ -15,7 +15,7 @@ header{
 
 
 body{
-    background-color: var(--color-2);
+    background-color: white;
 }
 main{
     display: inline-block;

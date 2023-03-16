@@ -21,10 +21,11 @@ class City(models.Model):
         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
 
 #Department model
-#id
-#name
-#url
-#city
+class Department(models.Model):
+        department_id = models.AutoField(primary_key=True)
+        name = models.CharField(max_length=100)
+        url = models.CharField(max_length=1000)
+        city = models.ForeignKey(City, on_delete=models.CASCADE)
 
 class Office(models.Model):
         office_id = models.AutoField(primary_key=True)
@@ -32,18 +33,18 @@ class Office(models.Model):
         role = models.CharField(max_length=100)
         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
     
-#To be chucked.
-class Issue(models.Model):
-        issue_id = models.AutoField(primary_key=True)
-        name = models.CharField(max_length=100)
-        copy = models.CharField(max_length=100)
-        politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
+# #To be chucked.
+# class Issue(models.Model):
+#         issue_id = models.AutoField(primary_key=True)
+#         name = models.CharField(max_length=100)
+#         copy = models.CharField(max_length=100)
+#         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
 
-#To be chucked.
-class Committee(models.Model):
-        committee_id = models.AutoField(primary_key=True)
-        name = models.CharField(max_length=100)
-        chair = models.CharField(max_length=100)
-        groups_overseen = models.CharField(max_length=100)
-        committee_web = models.CharField(max_length=100, blank=True)
-        politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
+# #To be chucked.
+# class Committee(models.Model):
+#         committee_id = models.AutoField(primary_key=True)
+#         name = models.CharField(max_length=100)
+#         chair = models.CharField(max_length=100)
+#         groups_overseen = models.CharField(max_length=100)
+#         committee_web = models.CharField(max_length=100, blank=True)
+#         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)

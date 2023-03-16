@@ -5,5 +5,4 @@ from .models import *
 admin.site.register(Politician)
 admin.site.register(City)
 admin.site.register(Office)
-admin.site.register(Issue)
-admin.site.register(Committee)
+admin.site.register(Department)

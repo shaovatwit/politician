@@ -16,10 +16,19 @@
 header{
     background-color: var(--header-color);
     padding: 1em;
+    height: 176px;
+    background-size: cover;
 }
 header a{
     text-decoration: none;
 }
+header#boston-header{
+    background-image: url("./images/Boston_skyline.jpg");
+}
+header#generic-city{
+    background-image: url("./images/generic-city-skyline.jpg");
+}
+
 h1, h2, h3, h4{
     color: var(--black-grey);
     margin-top: 0;

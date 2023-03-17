@@ -83,10 +83,16 @@ form{
 }
 
 table{
-    width: 40%;
+    width: 60%;
+    position: relative;
+    
 }
-table td#bio{
+table td{
+    padding-left: 1rem;
+}
+table td#biography{
     word-wrap: normal;
+    
 }
 
 footer{
@@ -110,7 +116,7 @@ nav ul#navbar-nav {
     display:block;
     width:0px;
     height:4px;
-    background:#ff0000;
+    background:#d22d23;
     transition: 0.2s;
     margin-top:-10px;
 }
@@ -141,13 +147,9 @@ nav ul#navbar-nav {
 }
 .navbar {
     position:relative;
-    /* display:-ms-flexbox; */
     display:flex;
-    /* -ms-flex-wrap:wrap; */
     flex-wrap:wrap;
-    /* -ms-flex-align:center; */
     align-items:center;
-    /* -ms-flex-pack:justify; */
     justify-content:space-between;
     padding: .5rem 1rem
 }
@@ -168,7 +170,7 @@ nav ul#navbar-nav {
     height:51px;
     
   border-bottom: .25rem solid transparent;
-  border-bottom-color: #ed4137;
+  border-bottom-color: #d22d23;
 }
 .navbar-expand-lg .navbar-nav .nav-link {
     padding-right:.5rem;padding-left:.5rem

@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView
 import requests
 from bs4 import BeautifulSoup
+import urllib.request as urllib
 
-from . import models
+from politicians.models import City, Department, Politician, Office
 
 # # Create your views here.
 # def index(request):
@@ -15,7 +16,7 @@ from . import models
 #########################
 
 def homepage(request):
-    return render(request, 'main.html')
+    return render(request, 'index.html')
 
 #############################################################
 # Get politician's information from their website url input #
@@ -23,16 +24,20 @@ def homepage(request):
 
 def get_politician_info(request, politician_id):
     #Check if politician_id exists in the database... if so, get otherwise post
-    if request.method == "POST":
-        url = request.POST.get('url') #Get URL Input
-        req = request.get(url) #Make Request
-        web_s = req.text #Website of the request
-        soup = BeautifulSoup(web_s, "html.parser") #Parse
+    if request.method == "GET":
+        govLink = Politician.objects.get(politician_id=politician_id).gov_link
+        # print(govLink)
+        page = urllib.urlopen(govLink)
+        soup = BeautifulSoup(page, "html.parser") #Parse
         #Get name of the politician.
+        title = soup.title.string
         #Politician wishes for their citizens?
+
+        
 
         return render(request, "index.html", { #render to the index.html with the contents
             #"name": name
+            "title": title
         })
     return render(request, "index.html")
 
@@ -43,7 +48,9 @@ def get_politician_info(request, politician_id):
 ###########################################################
 
 def get_city(request, city_id):
-    if request.method == "POST":
+    if request.method == "GET":
+        # city, created = City.objects.get_or_create(city_id)
+
         url = request.POST.get('boston.gov site')
         req = request.get(url)
         web_s = req.text
@@ -51,7 +58,7 @@ def get_city(request, city_id):
 
         #Get number of councilors
 
-        return render(request, "whateverpage.html", {
+        return render(request, "city.html", {
             #counsilors
         })
-    return render(request, "wateverpage.html")
+    return render(request, "city.html")

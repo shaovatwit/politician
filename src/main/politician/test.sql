@@ -3,3 +3,5 @@
 INSERT INTO Politicians_Politician (politician_id, name, gov_link, campaign_link)
 VALUES (2, 'Ed Flynn', 'https://www.boston.gov/departments/city-council/ed-flynn', 'https://www.edforboston.com/');
 -- INSERT INTO Politicians_City (city_id, name, state, politician_id) VALUES (1, 'Boston', 'MA', 1);
+
+-- psql -d Politician -c "TRUNCATE Politicians_City CASCADE; TRUNCATE Politicians_Department CASCADE; TRUNCATE Politicians_Politician CASCADE;"

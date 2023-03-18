@@ -3,10 +3,10 @@ from django.db import models
 # Create your models here.
 class Politician(models.Model):
         politician_id = models.AutoField(primary_key=True)
-        name = models.CharField(max_length=30)
-        gov_link = models.CharField(max_length=100, blank=True)
-        campaign_link = models.CharField(max_length=100, blank=True)
-        email = models.CharField(max_length=50, blank=True, null=True)
+        name = models.CharField(max_length=100)
+        gov_link = models.CharField(max_length=1000, blank=True)
+        campaign_link = models.CharField(max_length=1000, blank=True)
+        email = models.CharField(max_length=100, blank=True, null=True)
         phone = models.CharField(max_length=15, blank=True, null=True)
         address = models.CharField(max_length=100, blank=True, null=True)
         party = models.CharField(max_length=25, null=True)

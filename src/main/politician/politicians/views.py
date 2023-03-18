@@ -23,7 +23,6 @@ def homepage(request):
 #############################################################
 
 def get_politician_info(request, politician_id):
-    #Check if politician_id exists in the database... if so, get otherwise post
     if request.method == "GET":
         govLink = Politician.objects.get(politician_id=politician_id).gov_link
         # print(govLink)
@@ -62,3 +61,27 @@ def get_city(request, city_id):
             #counsilors
         })
     return render(request, "city.html")
+
+###########################################################
+# Get city council information and searches database if #
+# politician exists. Then stores and or updates the info  #
+# in the database                                         #
+###########################################################
+
+def check_council_info(request):
+    #Check if politician_id exists in the database... if so, get otherwise post
+    if request.method == "GET":
+        govLink = "https://www.boston.gov/departments/city-council"
+        page = urllib.urlopen(govLink)
+        soup = BeautifulSoup(page, "html.parser") #Parse
+        #Get name of the councils
+        main = soup.find("section", attrs={"id":"content"})
+        names = main.find_all("div", attrs={"class":"cdp-t"})
+        links = main.find_all("a", attrs={"class":"cdp-l"}, href=True)
+        for name, link in zip(names, links):
+            print(name.text)
+            obj, created = Politician.objects.get_or_create(
+                name=name.text,
+                gov_link="https://www.boston.gov" + link["href"]
+            )
+    return render(request, "test.html")

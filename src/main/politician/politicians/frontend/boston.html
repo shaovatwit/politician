@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<!-- to do list
-official boston website database link
-departments database thing -->
-
-
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta description="Page for Boston Information">
         <title>Boston, Massachusetts</title>
-        <link rel="stylesheet" href="index.css">
-
+        <link rel="stylesheet" href="..\static\css\index.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
     </head>
     <header>
         <h1>Local Politician Data Aggregator</h1>
-        <a href="/index.html">Home</a> <a href="/about.html">About</a>
+        <nav class="navbar navbar-expand-lg">
+            <ul class="navbar-nav">
+                <li class="active">
+                    <a href="./index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./information.html" class="nav-link">About</a>
+                </li>
+            </ul>
+        </nav>
     </header>
     <body>
         <main>
@@ -44,7 +49,7 @@ departments database thing -->
                     </optgroup>
                 </select>
                 <!-- <input type="button" value="Go" onclick="CHANGE TABLE"> -->
-                <table class="politician table" border="1">
+                <!-- <table class="politician table" border="1">
                     <thead>
                         <tr>
                             <td>Name</td>
@@ -75,6 +80,69 @@ departments database thing -->
                             <td>politician_id.biography</td>
                         </tr>
                     </tbody>
+                </table> -->
+                <br><br>
+
+                <table class="pol table 2" border="1">
+                    <thead>
+                        <tr>
+                            <td hidden>Col 1</td>
+                            <td hidden>Col 2</td>
+                            <td hidden>COL 3</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3" colspan="2"> IMAGE HERE</td>
+                            <td><h1>Ed Flynn</h1></td>
+                        </tr>
+                        <tr>
+                            <td>City Council President; City Councilor</td>
+                        </tr>
+                        <tr>
+                            <td>District 2</td>
+                        </tr>
+                        <tr>
+                            <td>Phone:</td>
+                            <td><a href="tel:617-635-3203">617-635-3203</a></td>
+                            <td rowspan="7">In January 2022, Council President Ed Flynn was unanimously elected by his colleagues to serve as Council President. 
+                                Councilor Flynn is a resident of District 2, where he has been involved as a community activist and youth sports coach. 
+                                Before taking his seat as a City Councilor, he was a Probation Officer at Suffolk Superior Court. <br>
+
+                                In addition to being a Boston Public Schools parent at Boston Latin School, Councilor Flynn is a member of several neighborhood organizations throughout the city. 
+                                He served for 24 years in the U.S. Navy and U.S. Navy reserve. 
+                                He is a Veteran of Operation ENDURING FREEDOM and helped with disaster relief efforts in Haiti. <br>
+
+                                Councilor Flynn also served for five years in the U.S. 
+                                Department of Labor under President Clinton, where he worked to expand access to affordable health care and increase the federal minimum wage. <br>
+
+                                Councilor Flynn and his wife Kristen are raising their children, Caroline and Stephen, in Boston.</td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><a href="mailto:ed.flynn@boston.gov">Send an email</a></td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td>1 City Hall Square,<br>Suite 550<br>Boston, MA<br>02201-2043 </td>
+                        </tr>
+                        <tr>
+                            <td>Party:</td>
+                            <td>Democratic (D)</td>
+                        </tr>
+                        <tr>
+                            <td>Elected:</td>
+                            <td>2017</td>
+                        </tr>
+                        <tr>
+                            <td>Campaign Website:</td>
+                            <td><a href="https://www.edforboston.com/">Ed For Boston</a></td>
+                        </tr>
+
+
+
+                    </tbody>
+
                 </table>
             </form>
 

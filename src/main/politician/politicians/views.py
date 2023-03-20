@@ -22,16 +22,15 @@ def homepage(request):
 # Get politician's information from their website url input #
 # Campaign Link must be manually input into database....... #
 #############################################################
-phone, email, fullAddress, title, district, dateElected, bio, party = ""
+govLink, phone, email, fullAddress, title, district, dateElected, bio, party = "", "","", "","", "","", "", ""
 
-def get_politician_info(request, politician_id):
-    if request.method == "GET":
+def get_politician_info(request, politician_id, name):
+    name = name.replace('-', ' ').strip()
+    print(name)
+    if request.method == "GET" and name == Politician.objects.get(politician_id=politician_id).name.casefold().strip():
         govLink = Politician.objects.get(politician_id=politician_id).gov_link
         page = urllib.urlopen(govLink)
         soup = BeautifulSoup(page, "html.parser") #Parse
-
-        # #first and last name
-        # name = soup.find(class_="person-profile-display-name").text
 
         #extract phone and email info into an array
         allSideInfo = soup.find_all("span", class_="sb-d")
@@ -105,7 +104,7 @@ def get_politician_info(request, politician_id):
             )
 
         return render(request, "test.html", { #render to the index.html with the contents
-            #"name": name
+            "name": Politician.objects.get(politician_id=politician_id).name,
             "district": Politician.objects.get(politician_id=politician_id).district,
             "bio": Politician.objects.get(politician_id=politician_id).biography,
             "phone": Politician.objects.get(politician_id=politician_id).phone,
@@ -114,7 +113,7 @@ def get_politician_info(request, politician_id):
             "address": Politician.objects.get(politician_id=politician_id).address,
             "party": Politician.objects.get(politician_id=politician_id).party
         })
-    return render(request, "test.html")
+    return render(request, "test2.html")
 
 ###########################################################
 # Get city information and searches database for the      #

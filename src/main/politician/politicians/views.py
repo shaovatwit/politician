@@ -26,7 +26,6 @@ govLink, phone, email, fullAddress, title, district, dateElected, bio, party = "
 
 def get_politician_info(request, politician_id, name):
     name = name.replace('-', ' ').strip()
-    print(name)
     if request.method == "GET" and name == Politician.objects.get(politician_id=politician_id).name.casefold().strip():
         govLink = Politician.objects.get(politician_id=politician_id).gov_link
         page = urllib.urlopen(govLink)

@@ -20,48 +20,99 @@ def homepage(request):
 
 #############################################################
 # Get politician's information from their website url input #
+# Campaign Link must be manually input into database....... #
 #############################################################
+phone, email, fullAddress, title, district, dateElected, bio, party = ""
 
 def get_politician_info(request, politician_id):
     if request.method == "GET":
         govLink = Politician.objects.get(politician_id=politician_id).gov_link
-        # print(govLink)
         page = urllib.urlopen(govLink)
         soup = BeautifulSoup(page, "html.parser") #Parse
 
-        #check if content is in database, if not then push to database and then pull from database to display
-        # if politician columns not in database then
-        #     get or create add them
-        # render from database to webpage.
-        name = soup.find(class_="person-profile-display-name").text
+        # #first and last name
+        # name = soup.find(class_="person-profile-display-name").text
+
+        #extract phone and email info into an array
         allSideInfo = soup.find_all("span", class_="sb-d")
         listInfo = [x for x in allSideInfo]
-        phone = listInfo[0].text
-        email = listInfo[1].find("a")["href"][7:]
+        #phone
+        if allSideInfo is not None:
+            phone = listInfo[0].text
+        if phone != Politician.objects.get(politician_id=politician_id).phone:
+            print(phone)
+            obj, created = Politician.objects.update_or_create(
+                politician_id = politician_id,
+                defaults={"phone": phone}
+            )
+        #email
+        if allSideInfo is not None:
+            email = listInfo[1].find("a")["href"][7:]
+        if email != Politician.objects.get(politician_id=politician_id).email:
+            obj, created = Politician.objects.update_or_create(
+                politician_id = politician_id,
+                defaults={"email": email}
+            )
+        #full title
         title = soup.find("div", attrs={"class":"person-profile-position-title"}).text
+        #district
+        if title is not None:
+            districtIndex = title.find("District")
+            district = title[districtIndex:].strip()
+        if district != Politician.objects.get(politician_id=politician_id).district:
+            obj, created = Politician.objects.update_or_create(
+                politician_id = politician_id,
+                defaults={"district": district}
+            )
+        #full address
+        addresses = soup.find("div", class_="addr-l")
+        if addresses is not None:
+            addressArray = addresses.find_all("span", recursive=False)
+            fullAddress = soup.find("div", class_="addr-a").text + " "
+            for address in addressArray:
+                fullAddress += address.text + " "
+        if fullAddress != Politician.objects.get(politician_id=politician_id).address:
+            obj, created = Politician.objects.update_or_create(
+                politician_id = politician_id,
+                defaults={"address": fullAddress}
+            )
 
-        #if statement to check if district in text and then extract that word + the #
-
+        #extract party and year elected
+        pyAllInfo = soup.find_all("div", class_="dl-d")
+        pyListInfo = [x for x in pyAllInfo]
+        #party
+        if pyAllInfo is not None:
+            party = pyListInfo[1].text.strip()
+        if party != Politician.objects.get(politician_id=politician_id).party:
+            obj, created = Politician.objects.update_or_create(
+                politician_id = politician_id,
+                defaults={"party": party}
+            )
+        #year elected
+        if pyAllInfo is not None:
+            dateElected = pyListInfo[0].text.strip()
+        if dateElected != Politician.objects.get(politician_id=politician_id).date_elected:
+            obj, created = Politician.objects.update_or_create(
+                politician_id = politician_id,
+                defaults={"date_elected": dateElected}
+            )
+        #biography
         bio = soup.find("div", attrs={"person-profile-bio"}).text
-
-        obj, created = Politician.objects.update_or_create(
-            politician_id=politician_id,
-            biography=bio,
-            email=email,
-            phone=phone,
-            defaults={
-                "biography":bio,
-                "email":email,
-                "phone":phone
-            }
-        )
+        if bio is not None and bio != Politician.objects.get(politician_id=politician_id).biography:
+            obj, created = Politician.objects.update_or_create(
+                politician_id = politician_id,
+                defaults={"biography": bio}
+            )
 
         return render(request, "test.html", { #render to the index.html with the contents
             #"name": name
-            "name": name,
-            "title": title,
-            "bio": bio,
-            "phone": phone
+            "district": Politician.objects.get(politician_id=politician_id).district,
+            "bio": Politician.objects.get(politician_id=politician_id).biography,
+            "phone": Politician.objects.get(politician_id=politician_id).phone,
+            "email": Politician.objects.get(politician_id=politician_id).email,
+            "dateElected": Politician.objects.get(politician_id=politician_id).date_elected,
+            "address": Politician.objects.get(politician_id=politician_id).address,
+            "party": Politician.objects.get(politician_id=politician_id).party
         })
     return render(request, "test.html")
 

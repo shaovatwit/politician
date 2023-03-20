@@ -8,9 +8,9 @@ class Politician(models.Model):
         campaign_link = models.CharField(max_length=1000, blank=True)
         email = models.CharField(max_length=100, blank=True, null=True)
         phone = models.CharField(max_length=15, blank=True, null=True)
-        address = models.CharField(max_length=100, blank=True, null=True)
+        address = models.CharField(max_length=1000, blank=True, null=True)
         party = models.CharField(max_length=25, null=True)
-        date_elected = models.DateField(null=True)
+        date_elected = models.CharField(max_length=4,null=True)
         biography = models.CharField(max_length=10000, null=True)
         district = models.CharField(max_length=100, null=True)
 

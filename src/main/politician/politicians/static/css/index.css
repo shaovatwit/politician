@@ -16,10 +16,19 @@
 header{
     background-color: var(--header-color);
     padding: 1em;
+    height: 195px;
+    background-size: cover;
 }
 header a{
     text-decoration: none;
 }
+header#boston-header{
+    background-image: url("./images/Boston_skyline.jpg");
+}
+header#generic-city{
+    background-image: url("./images/generic-city-skyline.jpg");
+}
+
 h1, h2, h3, h4{
     color: var(--black-grey);
     margin-top: 0;
@@ -40,7 +49,9 @@ body{
     text-align: left;
     margin: 0;
     background-color: #fff;
+    /* min-height: 100%; */
 }
+
 main{
     display: inline-block;
     padding: 1em;
@@ -58,9 +69,11 @@ aside#sidebar{
     background-color: var(--color-1);
     padding-right: 1.5em;
     list-style-type: none;
-    position: absolute;
+    position: fixed;
+    margin-left: 1em;
     right: 0;
     height: 100%;
+    width: 20%;
 }
 aside#sidebar h3,h4{
     text-align: right;
@@ -73,20 +86,29 @@ aside#sidebar ul{
     padding: 8px;
     display: block;
 }
+aside#sidebar select#department{
+    width: 80%;
+}
 aside#sidebar a{
     text-decoration: underline dotted;
     color: black;
 }
 form{
     display: inline-block;
-
 }
 
 table{
-    width: 40%;
+    width: auto;
+    position: relative;
+    width: 70%;
+    
 }
-table td#bio{
+table td{
+    padding-left: 1rem;
+}
+table td#biography{
     word-wrap: normal;
+    
 }
 
 footer{
@@ -94,8 +116,8 @@ footer{
     padding: 1em;
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
-    /* display: block; */
 }
 
 
@@ -110,7 +132,7 @@ nav ul#navbar-nav {
     display:block;
     width:0px;
     height:4px;
-    background:#ff0000;
+    background:#d22d23;
     transition: 0.2s;
     margin-top:-10px;
 }
@@ -141,13 +163,9 @@ nav ul#navbar-nav {
 }
 .navbar {
     position:relative;
-    /* display:-ms-flexbox; */
     display:flex;
-    /* -ms-flex-wrap:wrap; */
     flex-wrap:wrap;
-    /* -ms-flex-align:center; */
     align-items:center;
-    /* -ms-flex-pack:justify; */
     justify-content:space-between;
     padding: .5rem 1rem
 }
@@ -168,7 +186,7 @@ nav ul#navbar-nav {
     height:51px;
     
   border-bottom: .25rem solid transparent;
-  border-bottom-color: #ed4137;
+  border-bottom-color: #d22d23;
 }
 .navbar-expand-lg .navbar-nav .nav-link {
     padding-right:.5rem;padding-left:.5rem

@@ -16,21 +16,22 @@ class Politician(models.Model):
 
 class City(models.Model):
         city_id = models.AutoField(primary_key=True)
-        name = models.CharField(max_length=100)
-        state = models.CharField(max_length=25)
+        name = models.CharField(max_length=100, null=True, blank=True)
+        state = models.CharField(max_length=25, null=True, blank=True)
         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
 
 #Department model
 class Department(models.Model):
         department_id = models.AutoField(primary_key=True)
-        name = models.CharField(max_length=100)
-        url = models.CharField(max_length=1000)
+        name = models.CharField(max_length=100, null=True, blank=True)
+        url = models.CharField(max_length=1000, null=True, blank=True)
+        phone = models.CharField(max_length=13, null=True, blank=True)
         city = models.ForeignKey(City, on_delete=models.CASCADE)
 
 class Office(models.Model):
         office_id = models.AutoField(primary_key=True)
-        name = models.CharField(max_length=100)
-        role = models.CharField(max_length=100)
+        name = models.CharField(max_length=100, null=True, blank=True)
+        role = models.CharField(max_length=100, null=True, blank=True)
         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
     
 # #To be chucked.

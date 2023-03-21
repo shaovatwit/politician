@@ -25,8 +25,8 @@ def homepage(request):
 govLink, phone, email, fullAddress, title, district, dateElected, bio, party = "", "","", "","", "","", "", ""
 
 def get_politician_info(request, politician_id, name):
-    name = name.replace('-', ' ').strip()
-    if request.method == "GET" and name == Politician.objects.get(politician_id=politician_id).name.casefold().strip():
+    inputName = name.replace('-', ' ').strip()
+    if request.method == "GET" and inputName == Politician.objects.get(politician_id=politician_id).name.casefold().strip():
         govLink = Politician.objects.get(politician_id=politician_id).gov_link
         page = urllib.urlopen(govLink)
         soup = BeautifulSoup(page, "html.parser") #Parse
@@ -56,7 +56,7 @@ def get_politician_info(request, politician_id, name):
         #district
         if title is not None:
             districtIndex = title.find("District")
-            district = title[districtIndex:].strip()
+            district = title[districtIndex+8:].strip()
         if district != Politician.objects.get(politician_id=politician_id).district:
             obj, created = Politician.objects.update_or_create(
                 politician_id = politician_id,
@@ -115,38 +115,51 @@ def get_politician_info(request, politician_id, name):
     return render(request, "test2.html")
 
 ###########################################################
-# Get city information and searches database for the      #
-# politician in that area. Then fetches the url from the  #
-# database to scrape the data                             #
+# Get departments from the boston.gov website             #
 ###########################################################
 
-def get_city(request, city_id):
-    if request.method == "GET":
-        # city, created = City.objects.get_or_create(city_id)
+def get_departments(request, name, city_id, department_id):
+    inputName = name.replace('-', ' ').strip()
+    if City.objects.filter(city_id=city_id).first() is None:
+        return render(request, "test2.html")
+    if request.method == "GET" and inputName == City.objects.get(city_id=city_id).name.casefold().strip():
+        deptLink = urllib.urlopen('https://www.boston.gov/departments')
 
-        url = request.POST.get('boston.gov site')
-        req = request.get(url)
-        web_s = req.text
-        soup = BeautifulSoup(web_s, "html.parser")
+        soup = BeautifulSoup(deptLink, "html.parser")
+        main = soup.find("div", class_="b-c")
+        allContent = ""
+        if main is not None:
+            #gets the href of the department links
+            links = main.find_all("a", class_="cdd", href=True)
+            #gets the department and their numbers
+            allContent = main.find_all("div", class_="cdd-d-i")
+            deptInfo = []
+            for x in allContent:
+                leftStrip = x.text.lstrip("\n")
+                rightStrip = leftStrip.rstrip("\n")
+                deptInfo.append(rightStrip.split("\n"))
+            flattened = [val for nest in deptInfo for val in nest]
+            departments = flattened[::2]
+            deptNum = flattened[1::2]
 
-        #Get number of councilors
-
-        return render(request, "city.html", {
-            #counsilors
-        })
-    return render(request, "city.html")
+            #get or create department info
+            for dept, num, link in zip(departments, deptNum, links):
+                obj, created = Department.objects.get_or_create(
+                    name = dept,
+                    phone = num[0:13],
+                    url = "https://www.boston.gov" + link["href"],
+                    city_id = City.objects.get(city_id=city_id).city_id
+                )
+    return render(request, "test.html")
 
 ###########################################################
-# Get city council information and searches database if   #
-# politician exists. Then stores and or updates the info  #
-# in the database                                         #
+# Get city council information and adds to database.      #
 ###########################################################
 
 def check_council_info(request):
-    #Check if politician_id exists in the database... if so, get otherwise post
     if request.method == "GET":
-        govLink = "https://www.boston.gov/departments/city-council"
-        page = urllib.urlopen(govLink)
+        councilLink = "https://www.boston.gov/departments/city-council"
+        page = urllib.urlopen(councilLink)
         soup = BeautifulSoup(page, "html.parser") #Parse
         #Get name of the councils
         main = soup.find("section", attrs={"id":"content"})

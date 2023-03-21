@@ -20,6 +20,6 @@ from politicians import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('<slug:name><int:politician_id>', views.get_politician_info, name="home"),
-    path('city/', views.get_city, name="city"),
-    path('', views.check_council_info, name="council")
+    path('', views.check_council_info, name="council"),
+    path('dept/<slug:name>/<int:city_id>/<int:department_id>', views.get_departments, name="departments")
 ]

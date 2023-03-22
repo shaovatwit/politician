@@ -86,7 +86,8 @@
             <h3>Helpful Links</h3>
             <div id="linksBoston">
                 <li>
-                    <ul><a href="https://www.boston.gov/">Official Boston Website</a></ul>
+                    <ul><a href="{{ cityLink}}">Official {{ cityname }} Website</a></ul>
+                    <!-- proper database names needed here ^^^^ -->
                     <ul id="bostonDepartments">
                         <form action="#">
                             <select name="department" id="department" onchange="location = this.value;">

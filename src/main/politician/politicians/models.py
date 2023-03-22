@@ -13,6 +13,7 @@ class Politician(models.Model):
         date_elected = models.CharField(max_length=4,null=True)
         biography = models.CharField(max_length=10000, null=True)
         district = models.CharField(max_length=100, null=True)
+        title = models.CharField(max_length=100, null=True, blank=True)
 
 class City(models.Model):
         city_id = models.AutoField(primary_key=True)

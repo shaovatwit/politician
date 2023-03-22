@@ -25,7 +25,7 @@ def homepage(request):
 govLink, phone, email, fullAddress, title, district, dateElected, bio, party = "", "","", "","", "","", "", ""
 
 def get_politician_info(request, politician_id, name):
-    inputName = name.replace('-', ' ').strip()
+    inputName = name.replace('-', ' ').strip().casefold()
     if request.method == "GET" and inputName == Politician.objects.get(politician_id=politician_id).name.casefold().strip():
         govLink = Politician.objects.get(politician_id=politician_id).gov_link
         page = urllib.urlopen(govLink)
@@ -38,7 +38,6 @@ def get_politician_info(request, politician_id, name):
         if allSideInfo is not None:
             phone = listInfo[0].text
         if phone != Politician.objects.get(politician_id=politician_id).phone:
-            print(phone)
             obj, created = Politician.objects.update_or_create(
                 politician_id = politician_id,
                 defaults={"phone": phone}
@@ -101,8 +100,27 @@ def get_politician_info(request, politician_id, name):
                 politician_id = politician_id,
                 defaults={"biography": bio}
             )
+            
+        #pulling names from db and then storing into list for dropdown menu aspect.
+        names, splitNames = [], []
+        allNames = Politician.objects.values("name")
+        for name in allNames:
+            names.append(name['name'].strip())
+        splitNames = [val.replace(" ", "-") for val in names]
+        #pulling the ids from db for dropdown menu url
+        allID = Politician.objects.values("politician_id")
+        ids = []
+        for id in allID:
+            ids.append(id['politician_id'])
+        #pulling links from db and then storing into list for dropdown menu aspect.
+        links = []
+        allLinks = Politician.objects.values("gov_link")
+        for link in allLinks:
+            links.append(link['gov_link'].strip())
+        zipped = zip(names, links, splitNames, ids)
 
         return render(request, "test.html", { #render to the index.html with the contents
+            "zipped": zipped,
             "name": Politician.objects.get(politician_id=politician_id).name,
             "district": Politician.objects.get(politician_id=politician_id).district,
             "bio": Politician.objects.get(politician_id=politician_id).biography,
@@ -110,7 +128,7 @@ def get_politician_info(request, politician_id, name):
             "email": Politician.objects.get(politician_id=politician_id).email,
             "dateElected": Politician.objects.get(politician_id=politician_id).date_elected,
             "address": Politician.objects.get(politician_id=politician_id).address,
-            "party": Politician.objects.get(politician_id=politician_id).party
+            "party": Politician.objects.get(politician_id=politician_id).party,
         })
     return render(request, "test2.html")
 

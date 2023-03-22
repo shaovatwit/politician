@@ -56,10 +56,11 @@ def get_politician_info(request, politician_id, name):
         if title is not None:
             districtIndex = title.find("District")
             district = title[districtIndex+8:].strip()
-        if district != Politician.objects.get(politician_id=politician_id).district:
+            title = title[:districtIndex-2].strip()
+        if district != Politician.objects.get(politician_id=politician_id).district or title != Politician.objects.get(politician_id=politician_id).title:
             obj, created = Politician.objects.update_or_create(
                 politician_id = politician_id,
-                defaults={"district": district}
+                defaults={"district": district, "title": title}
             )
         #full address
         addresses = soup.find("div", class_="addr-l")
@@ -119,16 +120,23 @@ def get_politician_info(request, politician_id, name):
             links.append(link['gov_link'].strip())
         zipped = zip(names, links, splitNames, ids)
 
-        return render(request, "test.html", { #render to the index.html with the contents
+        #extract image
+        image = soup.find("div", class_="person-profile-photo").find("img")
+        image = "https://www.boston.gov" + image['src']
+        print(title)
+
+        return render(request, "politician.html", { #render to the index.html with the contents
             "zipped": zipped,
             "name": Politician.objects.get(politician_id=politician_id).name,
             "district": Politician.objects.get(politician_id=politician_id).district,
+            "title": Politician.objects.get(politician_id=politician_id).title,
             "bio": Politician.objects.get(politician_id=politician_id).biography,
             "phone": Politician.objects.get(politician_id=politician_id).phone,
             "email": Politician.objects.get(politician_id=politician_id).email,
             "dateElected": Politician.objects.get(politician_id=politician_id).date_elected,
             "address": Politician.objects.get(politician_id=politician_id).address,
             "party": Politician.objects.get(politician_id=politician_id).party,
+            "image": image,
         })
     return render(request, "test2.html")
 

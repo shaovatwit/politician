@@ -111,14 +111,18 @@ table td#biography{
     
 }
 
-footer{
+#officeSelectBoston, #officeSelectCity {
+    display: none;
+}
+
+/* footer{
     background-color: var(--header-color);
     padding: 1em;
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-}
+} */
 
 
 

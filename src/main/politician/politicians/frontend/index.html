@@ -71,9 +71,11 @@
                 $('#city').on('change', function () {
                     if ( city.value === 'boston') {
                         $("#officeSelectBoston").show();
+                        $("#officeSelectCity").hide();
                     }
                     else if (this.value === 'city') {
                         $("#officeSelectCity").show();
+                        $("#officeSelectBoston").hide();
                     }
                     else {
                         $("#officeSelectBoston").hide();

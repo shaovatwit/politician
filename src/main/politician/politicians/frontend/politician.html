@@ -26,12 +26,8 @@
     </header>
     <body>
         <main>
-
-    
             <form action="#">
-
-
-                <table class="pol table 2" border="1">
+                <table class="pol table" border="1">
                     <thead>
                         <tr>
                             <td hidden>Col 1</td>
@@ -79,11 +75,7 @@
                             <td><a href="{{ campaign_link }}">{{ campaign_link_title }}</a></td>
                             <!-- Do we have the campaign website in the database? we'd need to grab the website's title as well -->
                         </tr>
-
-
-
                     </tbody>
-
                 </table>
             </form>
 
@@ -92,22 +84,40 @@
 
         <aside id="sidebar">
             <h3>Helpful Links</h3>
-            <li>
-                <ul><a href="https://www.boston.gov/">Official Boston Website</a></ul>
-                <ul id="bostonDepartments">
-                    <form action="#">
-                        <select name="department" id="department" onchange="location = this.value;">
-                            <option value="departmentChoose" hidden>Departments</option >
-                            <option value="departmentURL">DepartmentName</option>
-                        </select>
-                    </form>
-                </ul>
-                <ul id="neighborhood"><a href="https://www.boston.gov/my-neighborhood">My Neighborhood</a></ul>
-                <h4>Maps</h4>
-                <ul><a href="https://boston.maps.arcgis.com/apps/instant/lookup/index.html?appid=fbd99773425244b3888aa7077e7c8cfd">My Neighborhood Interactive Representation Map</a></ul>
-                <ul><a href="https://www.cityofboston.gov/maps/pdfs/ward_and_precincts.pdf">Wards and Precincts Map</a></ul>
-    
-            </li>
+            <div id="linksBoston">
+                <li>
+                    <ul><a href="https://www.boston.gov/">Official Boston Website</a></ul>
+                    <ul id="bostonDepartments">
+                        <form action="#">
+                            <select name="department" id="department" onchange="location = this.value;">
+                                <option value="departmentChoose" hidden>Departments</option >
+                                <option value="departmentURL">DepartmentName</option>
+                            </select>
+                        </form>
+                    </ul>
+                    <ul id="neighborhood"><a href="https://www.boston.gov/my-neighborhood">My Neighborhood</a></ul>
+                    <h4>Maps</h4>
+                    <ul><a href="https://boston.maps.arcgis.com/apps/instant/lookup/index.html?appid=fbd99773425244b3888aa7077e7c8cfd">My Neighborhood Interactive Representation Map</a></ul>
+                    <ul><a href="https://www.cityofboston.gov/maps/pdfs/ward_and_precincts.pdf">Wards and Precincts Map</a></ul>
+                </li>
+            </div>
+            <div id="linksCity">
+                <!-- <li>
+                    <ul><a href="https://www.boston.gov/">Official Boston Website</a></ul>
+                    <ul id="bostonDepartments">
+                        <form action="#">
+                            <select name="department" id="department" onchange="location = this.value;">
+                                <option value="departmentChoose" hidden>Departments</option >
+                                <option value="departmentURL">DepartmentName</option>
+                            </select>
+                        </form>
+                    </ul>
+                    <ul id="neighborhood"><a href="https://www.boston.gov/my-neighborhood">My Neighborhood</a></ul>
+                    <h4>Maps</h4>
+                    <ul><a href="https://boston.maps.arcgis.com/apps/instant/lookup/index.html?appid=fbd99773425244b3888aa7077e7c8cfd">My Neighborhood Interactive Representation Map</a></ul>
+                    <ul><a href="https://www.cityofboston.gov/maps/pdfs/ward_and_precincts.pdf">Wards and Precincts Map</a></ul>
+                </li> -->
+            </div>
         </aside>
     </body>
 

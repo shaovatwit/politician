@@ -128,9 +128,7 @@ def get_politician_info(request, name):
 ###########################################################
 # Politician Dropdown Menu                                #
 ###########################################################
-def dropdown(request, name):
-    inputName = name.replace('-', ' ').strip().title()
-    check = get_object_or_404(Politician, name__exact=inputName)
+def dropdown(request):
     if request.method == "GET":
         #pulling names from db and then storing into list for dropdown menu aspect.
         names, splitNames = [], []

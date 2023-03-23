@@ -106,7 +106,32 @@ def get_politician_info(request, name):
                 name=inputName,
                 defaults={"biography": bio}
             )
-            
+
+        #extract image
+        image = soup.find("div", class_="person-profile-photo").find("img")
+        image = "https://www.boston.gov" + image['src']
+
+        return render(request, "politician.html", { #render to the index.html with the contents
+            "name": inputName,
+            "district": Politician.objects.get(name=inputName).district,
+            "title": Politician.objects.get(name=inputName).title,
+            "bio": Politician.objects.get(name=inputName).biography,
+            "phone": Politician.objects.get(name=inputName).phone,
+            "email": Politician.objects.get(name=inputName).email,
+            "dateElected": Politician.objects.get(name=inputName).date_elected,
+            "address": Politician.objects.get(name=inputName).address,
+            "party": Politician.objects.get(name=inputName).party,
+            "image": image,
+        })
+    return render(request, "test2.html")
+
+###########################################################
+# Politician Dropdown Menu                                #
+###########################################################
+def dropdown(request, name):
+    inputName = name.replace('-', ' ').strip().title()
+    check = get_object_or_404(Politician, name__exact=inputName)
+    if request.method == "GET":
         #pulling names from db and then storing into list for dropdown menu aspect.
         names, splitNames = [], []
         allNames = Politician.objects.values("name")
@@ -124,25 +149,8 @@ def get_politician_info(request, name):
         for link in allLinks:
             links.append(link['gov_link'].strip())
         zipped = zip(names, links, splitNames, ids)
-
-        #extract image
-        image = soup.find("div", class_="person-profile-photo").find("img")
-        image = "https://www.boston.gov" + image['src']
-
-        return render(request, "test.html", { #render to the index.html with the contents
-            "zipped": zipped,
-            "name": inputName,
-            "district": Politician.objects.get(name=inputName).district,
-            "title": Politician.objects.get(name=inputName).title,
-            "bio": Politician.objects.get(name=inputName).biography,
-            "phone": Politician.objects.get(name=inputName).phone,
-            "email": Politician.objects.get(name=inputName).email,
-            "dateElected": Politician.objects.get(name=inputName).date_elected,
-            "address": Politician.objects.get(name=inputName).address,
-            "party": Politician.objects.get(name=inputName).party,
-            "image": image,
-        })
-    return render(request, "test2.html")
+    return render(request, "index.html", {
+        "zipped": zipped})
 
 
 ###########################################################

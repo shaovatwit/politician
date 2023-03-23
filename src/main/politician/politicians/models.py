@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Politician(models.Model):
-        politician_id = models.AutoField(primary_key=True)
+        # politician_id = models.AutoField(primary_key=True)
         name = models.CharField(max_length=100)
         gov_link = models.CharField(max_length=1000, blank=True)
         campaign_link = models.CharField(max_length=1000, blank=True)
@@ -16,24 +16,25 @@ class Politician(models.Model):
         title = models.CharField(max_length=100, null=True, blank=True)
 
 class City(models.Model):
-        city_id = models.AutoField(primary_key=True)
+        # city_id = models.AutoField(primary_key=True)
         name = models.CharField(max_length=100, null=True, blank=True)
         state = models.CharField(max_length=25, null=True, blank=True)
         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
 
 #Department model
 class Department(models.Model):
-        department_id = models.AutoField(primary_key=True)
+        # department_id = models.AutoField(primary_key=True)
         name = models.CharField(max_length=100, null=True, blank=True)
         url = models.CharField(max_length=1000, null=True, blank=True)
         phone = models.CharField(max_length=13, null=True, blank=True)
         city = models.ForeignKey(City, on_delete=models.CASCADE)
 
-class Office(models.Model):
-        office_id = models.AutoField(primary_key=True)
-        name = models.CharField(max_length=100, null=True, blank=True)
-        role = models.CharField(max_length=100, null=True, blank=True)
-        politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
+#To be chucked.
+# class Office(models.Model):
+#         office_id = models.AutoField(primary_key=True)
+#         name = models.CharField(max_length=100, null=True, blank=True)
+#         role = models.CharField(max_length=100, null=True, blank=True)
+#         politician = models.ForeignKey(Politician, on_delete=models.CASCADE)
     
 # #To be chucked.
 # class Issue(models.Model):

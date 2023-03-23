@@ -33,7 +33,7 @@
     <form >
         <select name="select" onChange="window.open(this.options[this.selectedIndex].value,'_blank');">
         {% for pName, link, name, id in zipped %}
-        <option value={{name}}-{{id}}>{{pName}}</option>
+        <option value={{name}}>{{pName}}</option>
         {% endfor %}
         </select>
     </form>

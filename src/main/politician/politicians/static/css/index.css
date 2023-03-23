@@ -191,12 +191,21 @@ table{
     width: 70%;
     
 }
-table td{
+table td#text{
     padding-left: 1rem;
+    margin-right: 0;
 }
 table td#biography{
     word-wrap: normal;
-    
+    padding-left: 1rem;
+}
+table img{
+    display: block;
+    height: 15em;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50rem;
 }
 
 #officeSelectBoston, #officeSelectCity {

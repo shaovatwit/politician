@@ -38,42 +38,43 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td rowspan="3" colspan="2"> <img src="{ }" alt="{{ name }}"></td>
-                            <td><h1>{{ name }} </h1></td>
+                            <!-- <td rowspan="3" colspan="2"> <img src="{ }" alt="{{ name }}" id="politicianImg"></td> -->
+                            <td rowspan="3" colspan="2"> <img src="{  }" alt="{{ name }}" id="politicianImg"></td>
+                            <td id="text"><h1>{{ name }} </h1></td>
                         </tr>
                         <tr>
-                            <td>City Council President; City Councilor</td>
+                            <td id="text">City Council President; City Councilor</td>
                             <!-- The office title doesn't look like it's in the db -->
                         </tr>
                         <tr>
-                            <td>District {{ district }}</td>
+                            <td id="text">District {{ district }}</td>
                             <!-- may need to be formatted differently depending on how it comes out of the db -->
                         </tr>
                         <tr>
-                            <td>Phone:</td>
-                            <td><a href="tel:{{ phone }}">{{ phone }}</a></td>
+                            <td id="text">Phone:</td>
+                            <td id="text"><a href="tel:{{ phone }}">{{ phone }}</a></td>
                             <td rowspan="7" id="biography">{{ bio }}</td>
                             <!-- formatting this to include <br> in between paragraphs would make it much more legible -->
                         </tr>
                         <tr>
-                            <td>Email:</td>
-                            <td><a href="mailto:{{ email }}">Send an email</a></td>
+                            <td id="text">Email:</td>
+                            <td id="text"><a href="mailto:{{ email }}">Send an email</a></td>
                         </tr>
                         <tr>
-                            <td>Address:</td>
-                            <td>{{ address }}</td>
+                            <td id="text">Address:</td>
+                            <td id="text">{{ address }}</td>
                         </tr>
                         <tr>
-                            <td>Party:</td>
-                            <td>{{ party }}</td>
+                            <td id="text">Party:</td>
+                            <td id="text">{{ party }}</td>
                         </tr>
                         <tr>
-                            <td>Elected:</td>
-                            <td>{{ dateElected }}</td>
+                            <td id="text">Elected:</td>
+                            <td id="text">{{ dateElected }}</td>
                         </tr>
                         <tr>
-                            <td>Campaign Website:</td>
-                            <td><a href="{{ campaign_link }}">{{ campaign_link_title }}</a></td>
+                            <td id="text">Campaign Website:</td>
+                            <td id="text"><a href="{{ campaign_link }}">{{ campaign_link_title }}</a></td>
                             <!-- Do we have the campaign website in the database? we'd need to grab the website's title as well -->
                         </tr>
                     </tbody>

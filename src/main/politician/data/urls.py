@@ -19,8 +19,8 @@ from politicians import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/<slug:name>', views.get_politician_info, name="politician"),
-    path('', views.check_council_info, name="council"),
-    path('test/', views.dropdown, name="dropdownTest"),
+    path('<slug:name>', views.get_politician_info, name="politician"),
+    path('', views.dropdown, name="dropdownAndCouncil"),
+    # path('test/', views.dropdown, name="dropdownTest"),
     path('dept/<slug:name>/<int:city_id>/<int:department_id>', views.get_departments, name="departments")
 ]

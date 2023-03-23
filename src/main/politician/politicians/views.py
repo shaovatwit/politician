@@ -129,6 +129,7 @@ def get_politician_info(request, name):
 # Politician Dropdown Menu                                #
 ###########################################################
 def dropdown(request):
+    check_council_info(request) #check if council info is up to date
     if request.method == "GET":
         #pulling names from db and then storing into list for dropdown menu aspect.
         names, splitNames = [], []

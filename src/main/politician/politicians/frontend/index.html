@@ -60,7 +60,13 @@
                     </select>
                 </div>
                 <div id="officeSelectCity">
-                    <p>placeholder</p>
+                    <label for="office">Choose an office:</label>
+                    <select name="office" id="officeChoose" onchange="location = office.value">
+                        <option value="officeChoose" hidden>Choose an office</option>
+                        <optgroup label="Offices">
+                            <option value="../static/css/images/test.jpg">Baby cat, Mayor</option>
+                        </optgroup>
+                    </select>
                 </div>
 
                 

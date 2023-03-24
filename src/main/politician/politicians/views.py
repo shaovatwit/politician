@@ -123,7 +123,7 @@ def get_politician_info(request, name):
             "party": Politician.objects.get(name=inputName).party,
             "image": image,
         })
-    return render(request, "test2.html")
+    return render(request, "error.html")
 
 ###########################################################
 # Politician Dropdown Menu                                #

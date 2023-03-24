@@ -22,7 +22,7 @@ def homepage(request):
 # Get politician's information from their website url input #
 # Campaign Link must be manually input into database....... #
 #############################################################
-govLink, phone, email, fullAddress, title, district, dateElected, bio, party = "", "","", "","", "","", "", ""
+govLink, phone, email, fullAddress, title, district, dateElected, bio, party, atLarge = "", "","", "","", "","", "", "", ""
 
 def get_politician_info(request, name):
     inputName = name.replace('-', ' ').strip().title()
@@ -56,16 +56,24 @@ def get_politician_info(request, name):
         #district
         if title is not None:
             districtIndex = title.find("District")
+            atLargeIndex = title.find("At-Large")
             if districtIndex != -1:
                 district = title[districtIndex+8:].strip()
-            district = "None"
-            #fix logic with district
-            title = title[:districtIndex-2].strip()
-            if district != Politician.objects.get(name=inputName).district or title != Politician.objects.get(name=inputName).title:
-                obj, created = Politician.objects.update_or_create(
-                    name=inputName,
-                    defaults={"district": district, "title": title}
-                )
+                if district != Politician.objects.get(name=inputName).district or title != Politician.objects.get(name=inputName).title:
+                    title = title[:districtIndex-2].strip()
+                    obj, created = Politician.objects.update_or_create(
+                        name=inputName,
+                        defaults={"district": district, "title": title}
+                    )
+            #technically atLarge but all share under district column
+            if atLargeIndex != -1:
+                atLarge = title[atLargeIndex:].strip()
+                if atLarge != Politician.objects.get(name=inputName).district or title != Politician.objects.get(name=inputName).title:
+                    title = title[:atLargeIndex-2].strip()
+                    obj, created = Politician.objects.update_or_create(
+                        name=inputName,
+                        defaults={"district": atLarge, "title": title}
+                    )
         
         #full address
         addresses = soup.find("div", class_="addr-l")

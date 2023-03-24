@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta description="Homepage for the website">
+        <title>Local Politicial Data Aggregator</title>
+        <link rel="stylesheet" href="..\static\css\index.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+
+    <header id="boston-header">
+        <h1>Local Politician<br><span>Data Aggregator</span></h1>
+        <div id="navbarDiv">
+            <nav class="navbar navbar-expand-lg">
+                <ul class="navbar-nav">
+                    <li class="active">
+                        <a href="./index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./information.html" class="nav-link">About</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <body>
+        <main>
+            <form>
+                <label for="cityID">Select a city:</label>
+                <select id="city" name="city" >
+                    <option value="cityChoose" hidden>Choose a city to learn more</option >
+                    <option value="boston">Boston, MA</option>
+                    <option value="city">City</option>
+                </select>
+                <br>
+                <br>
+                <div id="officeSelectBoston">
+                    <label for="office">Choose an office:</label>
+                    <select name="office" id="officeChoose" onchange="location = office.value">
+                        <option value="officeChoose" hidden>Choose an office</option>
+                        <optgroup label="Offices">
+                            <option value="./politician.html">Michelle Wu, Mayor</option>
+                        </optgroup>
+                        <optgroup label="City Council">
+                            {% for pName, link, name, id in zipped %}
+                            <option value={{name}}>{{pName}}</option>
+                            {% endfor %}
+                            <!-- <option value="./politician.html">Michael Flaherty, At-Large</option>
+                            <option value="./politician.html">Ruthzee Louijeune, At-Large</option>
+                            <option value="./politician.html">Julia Mejia, At-Large</option>
+                            <option value="./politician.html">Erin Murphy, At-Large</option>
+                            <option value="./politician.html">Gabriela Coletta, District 1</option>
+                            <option value="./politician.html">Ed Flynn, City Council President; District 2</option>
+                            <option value="./politician.html">Frank Baker, District 3</option>
+                            <option value="./politician.html">Bryan Worrell, District 4</option>
+                            <option value="./politician.html">Ricardo Arroyo, District 5</option>
+                            <option value="./politician.html">Kendra Lara, District 6</option>
+                            <option value="./politician.html">Tania Fernandes Anderson, District 7</option>
+                            <option value="./politician.html">Kenzie Bok, District 8</option>
+                            <option value="./politician.html">Liz Breadon, District 9</option> -->
+                        </optgroup>
+                    </select>
+                </div>
+                <div id="officeSelectCity">
+                    <p>placeholder</p>
+                </div>
+
+                
+            </form>
+
+        </main>
+
+        <script>
+                $('#city').on('change', function () {
+                    if ( city.value === 'boston') {
+                        $("#officeSelectBoston").show();
+                        $("#officeSelectCity").hide();
+                    }
+                    else if (this.value === 'city') {
+                        $("#officeSelectCity").show();
+                        $("#officeSelectBoston").hide();
+                    }
+                    else {
+                        $("#officeSelectBoston").hide();
+                        $("#officeSelectCity").hide();
+                    }
+                });
+        </script>
+    </body>
+</html>

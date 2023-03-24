@@ -1,91 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta description="Homepage for the website">
-        <title>Local Politicial Data Aggregator</title>
-        <link rel="stylesheet" href="..\static\css\index.css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    </head>
-
-    <header id="boston-header">
-        <h1>Local Politician<br><span>Data Aggregator</span></h1>
-        <div id="navbarDiv">
-            <nav class="navbar navbar-expand-lg">
-                <ul class="navbar-nav">
-                    <li class="active">
-                        <a href="./index.html" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="./information.html" class="nav-link">About</a>
-                    </li>
-                </ul>
-            </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Politician Data Aggregator | Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../static/css/index.css" />
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./">Local Politician Data Aggregator</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="./">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./faq">FAQ</a>
+            </li>
+          </ul>
         </div>
-    </header>
-    <body>
-        <main>
-            <form>
-                <label for="cityID">Select a city:</label>
-                <select id="city" name="city" >
-                    <option value="cityChoose" hidden>Choose a city to learn more</option >
-                    <option value="boston">Boston, MA</option>
-                    <option value="city">City</option>
-                </select>
-                <br>
-                <br>
-                <div id="officeSelectBoston">
-                    <label for="office">Choose an office:</label>
-                    <select name="office" id="officeChoose" onchange="location = office.value">
-                        <option value="officeChoose" hidden>Choose an office</option>
-                        <optgroup label="Offices">
-                            <option value="./politician.html">Michelle Wu, Mayor</option>
-                        </optgroup>
-                        <optgroup label="City Council">
-                            {% for pName, link, name, id in zipped %}
-                            <option value={{name}}>{{pName}}</option>
-                            {% endfor %}
-                            <!-- <option value="./politician.html">Michael Flaherty, At-Large</option>
-                            <option value="./politician.html">Ruthzee Louijeune, At-Large</option>
-                            <option value="./politician.html">Julia Mejia, At-Large</option>
-                            <option value="./politician.html">Erin Murphy, At-Large</option>
-                            <option value="./politician.html">Gabriela Coletta, District 1</option>
-                            <option value="./politician.html">Ed Flynn, City Council President; District 2</option>
-                            <option value="./politician.html">Frank Baker, District 3</option>
-                            <option value="./politician.html">Bryan Worrell, District 4</option>
-                            <option value="./politician.html">Ricardo Arroyo, District 5</option>
-                            <option value="./politician.html">Kendra Lara, District 6</option>
-                            <option value="./politician.html">Tania Fernandes Anderson, District 7</option>
-                            <option value="./politician.html">Kenzie Bok, District 8</option>
-                            <option value="./politician.html">Liz Breadon, District 9</option> -->
-                        </optgroup>
-                    </select>
-                </div>
-                <div id="officeSelectCity">
-                    <p>placeholder</p>
-                </div>
+      </div>
+    </nav>
 
-                
-            </form>
+    <div class="container container-fluid">
+      <div id="get-started">Get Started</div>
+      <div id="get-started-subtitle">Use the dropdown menu below.</div>
 
-        </main>
+      <select class="dropdown show" id="city">
+        <option class="dropdown-item">Select a City</option>
+        <option class="dropdown-item" value="boston">Boston, MA</option>
+        <option class="dropdown-item" value="city">City, WIP</option>
+      </select>
 
-        <script>
-                $('#city').on('change', function () {
-                    if ( city.value === 'boston') {
-                        $("#officeSelectBoston").show();
-                        $("#officeSelectCity").hide();
-                    }
-                    else if (this.value === 'city') {
-                        $("#officeSelectCity").show();
-                        $("#officeSelectBoston").hide();
-                    }
-                    else {
-                        $("#officeSelectBoston").hide();
-                        $("#officeSelectCity").hide();
-                    }
-                });
-        </script>
-    </body>
+      <select class="dropdown" id="office">
+        <option class="dropdown-item">Select an Office</option>
+        {% for pName, link, name, id in zipped %}
+        <option class="dropdown-item" value="{{name}}">{{pName}}</option>
+        {% endfor %}
+      </select>
+
+    <!-- footer -->
+    <footer>
+      <p>
+        Source Code on
+        <a href="https://github.com/shaovatwit/lo-politician-data-ag">GitHub</a>
+      </p>
+    </footer>
+    <script>
+        // function select() {
+        //     let dropdown = document.getElementsByClassName("dropdown");
+        //     console.log(dropdown);
+        //     let selected = dropdown.options[dropdown.selectedIndex].text;
+        // }
+        let selects = document.getElementByID("city").value;
+        console.log(selects);
+        // let value = selects.options.value
+        // console.log(value);
+    //   $(value).addEventListener("change", function () {
+    //     console.log("Boston clicked");
+    //     document.getElementById("city").classList.toggle("show");
+    //     document.getElementById("office").classList.add("show");
+    //   });
+    </script>
+    <script>
+      src =
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js";
+      integrity =
+        "sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN";
+      crossorigin = "anonymous";
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
+      integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

@@ -65,7 +65,7 @@ def get_politician_info(request, name):
             districtIndex = title.find("District")
             atLargeIndex = title.find("At-Large")
             if districtIndex != -1:
-                district = title[districtIndex+8:].strip()
+                district = title[districtIndex:].strip()
                 if district != Politician.objects.get(name=inputName).district or title != Politician.objects.get(name=inputName).title:
                     title = title[:districtIndex-2].strip()
                     obj, created = Politician.objects.update_or_create(
@@ -223,4 +223,4 @@ def check_council_info(request):
                 name=name.text.strip(),
                 gov_link="https://www.boston.gov" + link["href"]
             )
-    return render(request, "test.html")
+    return render(request, "index.html")

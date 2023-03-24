@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('<slug:name>', views.get_politician_info, name="politician"),
     path('', views.dropdown, name="dropdownAndCouncil"),
-    # path('test/', views.dropdown, name="dropdownTest"),
+    path('faq/', views.faq, name="faq"),
     path('dept/<slug:name>/<int:city_id>/<int:department_id>', views.get_departments, name="departments")
 ]

@@ -18,6 +18,13 @@ from politicians.models import City, Department, Politician
 def homepage(request):
     return render(request, 'index.html')
 
+#########################
+#    Display FAQ        #
+#########################
+
+def faq(request):
+    return render(request, 'faq.html')
+
 #############################################################
 # Get politician's information from their website url input #
 # Campaign Link must be manually input into database....... #

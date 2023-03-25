@@ -12,6 +12,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../static/css/index.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
   </head>
   <body>
     <!-- navbar -->
@@ -45,20 +46,31 @@
     <div class="container container-fluid">
       <div id="get-started">Get Started</div>
       <div id="get-started-subtitle">Use the dropdown menu below.</div>
+      <label for="city" id="cityLabel" class="show">
+        <span>Select a City</span>
+      </label>
+      <input type="checkbox" id="city" />
+      <ul class="dropdown">
+        <li class="dropdown-item">
+          <a id="boston">Boston, MA</a>
+        </li>
+        <li class="dropdown-item test">
+          <a id="cityWIP">City, WIP</a>
+        </li>
+      </ul>
 
-      <select class="dropdown show" id="city">
-        <option class="dropdown-item">Select a City</option>
-        <option class="dropdown-item" value="boston">Boston, MA</option>
-        <option class="dropdown-item" value="city">City, WIP</option>
-      </select>
-
-      <select class="dropdown" id="office">
-        <option class="dropdown-item">Select an Office</option>
+      <label for="office" id="officeLabel" class="">
+        <span>Select an Office</span>
+      </label>
+      <input type="checkbox" id="office" />
+      <ul class="dropdown">
         {% for pName, link, name, id in zipped %}
-        <option class="dropdown-item" value="{{name}}">{{pName}}</option>
+        <li class="dropdown-item">
+          <a value="{{name}}">{{pName}}</a>
+        </li>
         {% endfor %}
-      </select>
-
+      </ul>
+    </div>
     <!-- footer -->
     <footer>
       <p>
@@ -67,20 +79,18 @@
       </p>
     </footer>
     <script>
-        // function select() {
-        //     let dropdown = document.getElementsByClassName("dropdown");
-        //     console.log(dropdown);
-        //     let selected = dropdown.options[dropdown.selectedIndex].text;
-        // }
-        let selects = document.getElementByID("city").value;
-        console.log(selects);
-        // let value = selects.options.value
-        // console.log(value);
-    //   $(value).addEventListener("change", function () {
-    //     console.log("Boston clicked");
-    //     document.getElementById("city").classList.toggle("show");
-    //     document.getElementById("office").classList.add("show");
-    //   });
+      document.onload;
+
+      $("#boston").on("click", function () {
+        if (document.getElementById("boston").id == "boston") {
+          //replace boston with {{city}} when dynamically made.
+          console.log(document.getElementById("office").nextElementSibling);
+          document.getElementById("cityLabel").classList.toggle("show");
+          document.getElementById("city").nextElementSibling.style.display =
+            "none";
+          document.getElementById("officeLabel").classList.add("show");
+        }
+      });
     </script>
     <script>
       src =

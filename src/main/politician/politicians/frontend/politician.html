@@ -1,111 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta description="Page for Boston Information">
-        <!-- The description would have to be changed to accomodate the diff politicians  -->
-        <title>Boston, Massachusetts</title>
-        <!-- So would the title -->
-        <link rel="stylesheet" href="..\static\css\index.css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
-    </head>
-    <header id="boston-header">
-        <h1>Local Politician<br><span>Data Aggregator</span></h1>
-        <div id="navbarDiv">
-            <nav class="navbar navbar-expand-lg">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="./" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="./information.html" class="nav-link">About</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <body>
-        <main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta description="Page for Boston Information" />
+    <!-- The description would have to be changed to accomodate the diff politicians  -->
+    <title>Boston, Massachusetts</title>
+    <!-- So would the title -->
+    <link rel="stylesheet" href="..\static\css\index.css" />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <header id="boston-header">
+    <h1>Local Politician<br /><span>Data Aggregator</span></h1>
+    <div id="navbarDiv">
+      <nav class="navbar navbar-expand-lg">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="./" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="./information.html" class="nav-link">About</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <body>
+    <main>
+      <form action="#">
+        <table class="pol table" border="1">
+          <thead>
+            <tr>
+              <td hidden>Col 1</td>
+              <td hidden>Col 2</td>
+              <td hidden>COL 3</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="3" colspan="2">
+                <img src="{{image}}" alt="{{ name }}" />
+              </td>
+              <td><h1>{{ name }}</h1></td>
+            </tr>
+            <tr>
+              <td>{{title}}</td>
+              <!-- The office title doesn't look like it's in the db -->
+            </tr>
+            <tr>
+              <td>District {{ district }}</td>
+              <!-- may need to be formatted differently depending on how it comes out of the db -->
+            </tr>
+            <tr>
+              <td>Phone:</td>
+              <td><a href="tel:{{ phone }}">{{ phone }}</a></td>
+              <td rowspan="7" id="biography">{{ bio }}</td>
+              <!-- formatting this to include <br> in between paragraphs would make it much more legible -->
+            </tr>
+            <tr>
+              <td>Email:</td>
+              <td><a href="mailto:{{ email }}">Send an email</a></td>
+            </tr>
+            <tr>
+              <td>Address:</td>
+              <td>{{ address }}</td>
+            </tr>
+            <tr>
+              <td>Party:</td>
+              <td>{{ party }}</td>
+            </tr>
+            <tr>
+              <td>Elected:</td>
+              <td>{{ dateElected }}</td>
+            </tr>
+            <tr>
+              <td>Campaign Website:</td>
+              <td>
+                <a href="{{ campaign_link }}">{{ campaign_link_title }}</a>
+              </td>
+              <!-- Do we have the campaign website in the database? we'd need to grab the website's title as well -->
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </main>
+
+    <aside id="sidebar">
+      <h2>Helpful Links</h2>
+      <div id="linksBoston">
+        <li>
+          <ul>
+            <a href="{{ cityLink}}">Official {{ cityname }} Website</a>
+          </ul>
+          <!-- proper database names needed here ^^^^ -->
+          <ul id="bostonDepartments">
             <form action="#">
-                <table class="pol table" border="1">
-                    <thead>
-                        <tr>
-                            <td hidden>Col 1</td>
-                            <td hidden>Col 2</td>
-                            <td hidden>COL 3</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td rowspan="3" colspan="2"> <img src="{{image}}" alt="{{ name }}"></td>
-                            <td><h1>{{ name }} </h1></td>
-                        </tr>
-                        <tr>
-                            <td>{{title}}</td>
-                            <!-- The office title doesn't look like it's in the db -->
-                        </tr>
-                        <tr>
-                            <td>District {{ district }}</td>
-                            <!-- may need to be formatted differently depending on how it comes out of the db -->
-                        </tr>
-                        <tr>
-                            <td>Phone:</td>
-                            <td><a href="tel:{{ phone }}">{{ phone }}</a></td>
-                            <td rowspan="7" id="biography">{{ bio }}</td>
-                            <!-- formatting this to include <br> in between paragraphs would make it much more legible -->
-                        </tr>
-                        <tr>
-                            <td>Email:</td>
-                            <td><a href="mailto:{{ email }}">Send an email</a></td>
-                        </tr>
-                        <tr>
-                            <td>Address:</td>
-                            <td>{{ address }}</td>
-                        </tr>
-                        <tr>
-                            <td>Party:</td>
-                            <td>{{ party }}</td>
-                        </tr>
-                        <tr>
-                            <td>Elected:</td>
-                            <td>{{ dateElected }}</td>
-                        </tr>
-                        <tr>
-                            <td>Campaign Website:</td>
-                            <td><a href="{{ campaign_link }}">{{ campaign_link_title }}</a></td>
-                            <!-- Do we have the campaign website in the database? we'd need to grab the website's title as well -->
-                        </tr>
-                    </tbody>
-                </table>
+              <select
+                name="department"
+                id="department"
+                onchange="location = this.value;"
+              >
+                <option value="departmentChoose" hidden>Departments</option>
+                <option value="departmentURL">DepartmentName</option>
+                <!-- This bit needs to be changed in order to properly work with the database stuff -->
+              </select>
             </form>
-
-
-        </main>
-
-        <aside id="sidebar">
-            <h2>Helpful Links</h2>
-            <div id="linksBoston">
-                <li>
-                    <ul><a href="{{ cityLink}}">Official {{ cityname }} Website</a></ul>
-                    <!-- proper database names needed here ^^^^ -->
-                    <ul id="bostonDepartments">
-                        <form action="#">
-                            <select name="department" id="department" onchange="location = this.value;">
-                                <option value="departmentChoose" hidden>Departments</option >
-                                <option value="departmentURL">DepartmentName</option>
-                                <!-- This bit needs to be changed in order to properly work with the database stuff -->
-                            </select>
-                        </form>
-                    </ul>
-                    <ul id="neighborhood"><a href="https://www.boston.gov/my-neighborhood">My Neighborhood</a></ul>
-                    <h2 id="maps">Maps</h2>
-                    <ul><a href="https://boston.maps.arcgis.com/apps/instant/lookup/index.html?appid=fbd99773425244b3888aa7077e7c8cfd">My Neighborhood Interactive Representation Map</a></ul>
-                    <ul><a href="https://www.cityofboston.gov/maps/pdfs/ward_and_precincts.pdf">Wards and Precincts Map</a></ul>
-                </li>
-            </div>
-            <!-- <div id="linksCity"> -->
-                <!-- <li>
+          </ul>
+          <ul id="neighborhood">
+            <a href="https://www.boston.gov/my-neighborhood">My Neighborhood</a>
+          </ul>
+          <h2 id="maps">Maps</h2>
+          <ul>
+            <a
+              href="https://boston.maps.arcgis.com/apps/instant/lookup/index.html?appid=fbd99773425244b3888aa7077e7c8cfd"
+              >My Neighborhood Interactive Representation Map</a
+            >
+          </ul>
+          <ul>
+            <a
+              href="https://www.cityofboston.gov/maps/pdfs/ward_and_precincts.pdf"
+              >Wards and Precincts Map</a
+            >
+          </ul>
+        </li>
+      </div>
+      <!-- <div id="linksCity"> -->
+      <!-- <li>
                     <ul><a href="https://www.boston.gov/">Official Boston Website</a></ul>
                     <ul id="bostonDepartments">
                         <form action="#">
@@ -120,9 +140,8 @@
                     <ul><a href="https://boston.maps.arcgis.com/apps/instant/lookup/index.html?appid=fbd99773425244b3888aa7077e7c8cfd">My Neighborhood Interactive Representation Map</a></ul>
                     <ul><a href="https://www.cityofboston.gov/maps/pdfs/ward_and_precincts.pdf">Wards and Precincts Map</a></ul>
                 </li> -->
-            <!-- </div> -->
-            <!-- This stuff can prob be deleted  -->
-        </aside>
-    </body>
-
+      <!-- </div> -->
+      <!-- This stuff can prob be deleted  -->
+    </aside>
+  </body>
 </html>

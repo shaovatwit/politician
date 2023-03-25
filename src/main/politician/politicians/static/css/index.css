@@ -34,6 +34,8 @@ body {
   padding: 1.5rem 2rem;
 }
 
+/* get started! */
+
 .container {
   border: 1px solid darkgrey;
   border-style: solid;
@@ -64,6 +66,8 @@ body {
   /* padding: 0rem 0rem 0rem 0.1rem; */
   text-align: center;
 }
+
+/* function for city and office */
 
 .show {
   display: inline-block;
@@ -133,7 +137,7 @@ span::after {
 }
 
 #office:checked + .dropdown {
-  height: 100px;
+  height: 100%;
 }
 
 #office:checked + .dropdown li:hover {

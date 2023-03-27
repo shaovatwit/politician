@@ -75,28 +75,32 @@
           </li>
         </ul>
       </div>
-    <div class="col-md-5">
-      <h1 class="who">Who is {{name}}?</h1>
-      <br />
-      <p class="bio">{{bio}}</p>
-    </div>
-    <div class="col-md-4">
-      <p class="personal-info">Personal Information</p>
-      <div class="p-line"></div>
-      <ul class="list-group list-group-flush p-flush">
-        <li class="list-group-item"><span>Title:</span> {{title}}</li>
-        <li class="list-group-item"><span>Representation:</span> {{district}}</li>
-        <li class="list-group-item"><span>Phone:</span> {{phone}}</li>
-        <li class="list-group-item"><span>Email:</span> {{email}}</li>
-        <li class="list-group-item"><span>Year Elected:</span> {{dateElected}}</li>
-        <!-- if address exists, show it -->
-        <!-- {% if address != "None" %}
+      <div class="col-md-5">
+        <h1 class="who">Who is {{name}}?</h1>
+        <br />
+        <p class="bio">{{bio}}</p>
+      </div>
+      <div class="col-md-4">
+        <p class="personal-info">Personal Information</p>
+        <div class="p-line"></div>
+        <ul class="list-group list-group-flush p-flush">
+          <li class="list-group-item"><span>Title:</span> {{title}}</li>
+          <li class="list-group-item">
+            <span>Representation:</span> {{district}}
+          </li>
+          <li class="list-group-item"><span>Phone:</span> {{phone}}</li>
+          <li class="list-group-item"><span>Email:</span> {{email}}</li>
+          <li class="list-group-item">
+            <span>Year Elected:</span> {{dateElected}}
+          </li>
+          <!-- if address exists, show it -->
+          <!-- {% if address != "None" %}
           <li class="list-group-item">Address: {{address}}</li>
           {% endif %} -->
-        <li class="list-group-item"><span>Party:</span> {{party}}</li>
-      </ul>
+          <li class="list-group-item"><span>Party:</span> {{party}}</li>
+        </ul>
+      </div>
     </div>
-
     <!-- footer -->
     <footer>
       <p>

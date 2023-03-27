@@ -5,11 +5,6 @@
 }
 
 body {
-  /* background-image: url("https://cdn.britannica.com/66/93866-050-64944EF0/Skyline-Boston.jpg"); */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
   font-family: "Roboto", sans-serif;
 }
 
@@ -34,25 +29,47 @@ body {
   padding: 1.5rem 2rem;
 }
 
-/* faq section with .accordion */
+/* name bio and info */
 
-#faq-title {
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: #000;
-  padding: 2rem;
+.name-pic-info img {
+  width: 80%;
+  border-radius: 50%;
+  margin: 2rem 0rem 0rem 0.9rem;
 }
 
-#faq-subtitle {
+.h-line {
+  background-color: #4a8dd1;
+  height: 0.2rem;
+  padding: 0rem 0rem 0rem 2rem;
+  margin: 2rem 6rem 0rem 4rem;
+}
+
+.who {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: black;
+  padding: 2rem 0rem 0rem 0rem;
+}
+
+.bio {
   font-size: 1.2rem;
   font-weight: 300;
-  color: #000;
-  margin-bottom: 1rem;
-  padding: 0rem 0rem 0rem 2rem;
+  color: black;
+  padding: 1rem 0rem 10rem 0rem;
 }
 
-.accordion {
-  margin: 2rem;
+.personal-info {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: black;
+  padding: 3rem 0rem 0rem 2.5rem;
+}
+
+.p-line {
+  background-color: #4a8dd1;
+  height: 0.2rem;
+  padding: 0rem 0rem 0rem 2rem;
+  margin: 0rem 15rem 0rem 2.5rem;
 }
 
 /* helpful link with flush  */
@@ -61,7 +78,7 @@ body {
   font-size: 2rem;
   font-weight: 500;
   color: #000;
-  padding: 2.7rem 0 0 3rem;
+  padding: 2rem 0 0 3rem;
 }
 
 #helpful-links-subtitle {
@@ -72,22 +89,42 @@ body {
   padding: 0rem 0rem 0rem 3rem;
 }
 
-.list-group-flush {
-  margin: 0rem;
+.p-flush {
+  margin: 1rem 0rem 0rem 1.5rem;
 }
 
-.list-group-item {
+.p-flush > .list-group-item {
   font-size: 1rem;
   font-weight: 200;
   color: #000;
 }
 
-.list-group-item a {
+.p-flush > .list-group-item a {
   color: #000;
   text-decoration: none;
 }
 
-.list-group-item a:hover {
+.p-flush > .list-group-item a:hover {
+  color: #4a8dd1;
+  text-decoration: none;
+}
+
+.h-flush {
+  margin: 0rem 0rem 4rem 2rem;
+}
+
+.h-flush > .list-group-item {
+  font-size: 1rem;
+  font-weight: 200;
+  color: #000;
+}
+
+.h-flush > .list-group-item a {
+  color: #000;
+  text-decoration: none;
+}
+
+.h-flush > .list-group-item a:hover {
   color: #4a8dd1;
   text-decoration: none;
 }

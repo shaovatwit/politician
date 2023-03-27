@@ -2,146 +2,125 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta description="Page for Boston Information" />
-    <!-- The description would have to be changed to accomodate the diff politicians  -->
-    <title>Boston, Massachusetts</title>
-    <!-- So would the title -->
-    <link rel="stylesheet" href="..\static\css\index_.css" />
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Politician Data Aggregator | {{name}}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../static/css/politician.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
   </head>
-  <header id="boston-header">
-    <h1>Local Politician<br /><span>Data Aggregator</span></h1>
-    <div id="navbarDiv">
-      <nav class="navbar navbar-expand-lg">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="./" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="./information.html" class="nav-link">About</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </header>
   <body>
-    <main>
-      <form action="#">
-        <table class="pol table" border="1">
-          <thead>
-            <tr>
-              <td hidden>Col 1</td>
-              <td hidden>Col 2</td>
-              <td hidden>COL 3</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td rowspan="3" colspan="2">
-                <img src="{{image}}" alt="{{ name }}" />
-              </td>
-              <td><h1>{{ name }}</h1></td>
-            </tr>
-            <tr>
-              <td>{{title}}</td>
-              <!-- The office title doesn't look like it's in the db -->
-            </tr>
-            <tr>
-              <td>District {{ district }}</td>
-              <!-- may need to be formatted differently depending on how it comes out of the db -->
-            </tr>
-            <tr>
-              <td>Phone:</td>
-              <td><a href="tel:{{ phone }}">{{ phone }}</a></td>
-              <td rowspan="7" id="biography">{{ bio }}</td>
-              <!-- formatting this to include <br> in between paragraphs would make it much more legible -->
-            </tr>
-            <tr>
-              <td>Email:</td>
-              <td><a href="mailto:{{ email }}">Send an email</a></td>
-            </tr>
-            <tr>
-              <td>Address:</td>
-              <td>{{ address }}</td>
-            </tr>
-            <tr>
-              <td>Party:</td>
-              <td>{{ party }}</td>
-            </tr>
-            <tr>
-              <td>Elected:</td>
-              <td>{{ dateElected }}</td>
-            </tr>
-            <tr>
-              <td>Campaign Website:</td>
-              <td>
-                <a href="{{ campaign_link }}">{{ campaign_link_title }}</a>
-              </td>
-              <!-- Do we have the campaign website in the database? we'd need to grab the website's title as well -->
-            </tr>
-          </tbody>
-        </table>
-      </form>
-    </main>
-
-    <aside id="sidebar">
-      <h2>Helpful Links</h2>
-      <div id="linksBoston">
-        <li>
-          <ul>
-            <a href="{{ cityLink}}">Official {{ cityname }} Website</a>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./">Local Politician Data Aggregator</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="./">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./faq/">FAQ</a>
+            </li>
           </ul>
-          <!-- proper database names needed here ^^^^ -->
-          <ul id="bostonDepartments">
-            <form action="#">
-              <select
-                name="department"
-                id="department"
-                onchange="location = this.value;"
-              >
-                <option value="departmentChoose" hidden>Departments</option>
-                <option value="departmentURL">DepartmentName</option>
-                <!-- This bit needs to be changed in order to properly work with the database stuff -->
-              </select>
-            </form>
-          </ul>
-          <ul id="neighborhood">
+        </div>
+      </div>
+    </nav>
+    <div class="row name-pic-info">
+      <div class="col-md-3">
+        <img src="{{image}}" alt="{{ name }}" />
+        <div class="h-line"></div>
+        <!-- helpful links -->
+        <div id="helpful-links-title">Helpful Links</div>
+        <div id="helpful-links-subtitle">
+          Here are some helpful links to other websites that may be useful to
+          you.
+        </div>
+        <ul class="list-group list-group-flush h-flush">
+          <li class="list-group-item">
+            <a href="https://www.boston.gov/departments/city-council"
+              >Boston City Council</a
+            >
+          </li>
+          <li class="list-group-item">
             <a href="https://www.boston.gov/my-neighborhood">My Neighborhood</a>
-          </ul>
-          <h2 id="maps">Maps</h2>
-          <ul>
+          </li>
+          <li class="list-group-item">
             <a
               href="https://boston.maps.arcgis.com/apps/instant/lookup/index.html?appid=fbd99773425244b3888aa7077e7c8cfd"
               >My Neighborhood Interactive Representation Map</a
             >
-          </ul>
-          <ul>
+          </li>
+          <li class="list-group-item">
             <a
               href="https://www.cityofboston.gov/maps/pdfs/ward_and_precincts.pdf"
               >Wards and Precincts Map</a
             >
-          </ul>
-        </li>
+          </li>
+        </ul>
       </div>
-      <!-- <div id="linksCity"> -->
-      <!-- <li>
-                    <ul><a href="https://www.boston.gov/">Official Boston Website</a></ul>
-                    <ul id="bostonDepartments">
-                        <form action="#">
-                            <select name="department" id="department" onchange="location = this.value;">
-                                <option value="departmentChoose" hidden>Departments</option >
-                                <option value="departmentURL">DepartmentName</option>
-                            </select>
-                        </form>
-                    </ul>
-                    <ul id="neighborhood"><a href="https://www.boston.gov/my-neighborhood">My Neighborhood</a></ul>
-                    <h4>Maps</h4>
-                    <ul><a href="https://boston.maps.arcgis.com/apps/instant/lookup/index.html?appid=fbd99773425244b3888aa7077e7c8cfd">My Neighborhood Interactive Representation Map</a></ul>
-                    <ul><a href="https://www.cityofboston.gov/maps/pdfs/ward_and_precincts.pdf">Wards and Precincts Map</a></ul>
-                </li> -->
-      <!-- </div> -->
-      <!-- This stuff can prob be deleted  -->
-    </aside>
+    <div class="col-md-5">
+      <h1 class="who">Who is {{name}}?</h1>
+      <br />
+      <p class="bio">{{bio}}</p>
+    </div>
+    <div class="col-md-4">
+      <p class="personal-info">Personal Information</p>
+      <div class="p-line"></div>
+      <ul class="list-group list-group-flush p-flush">
+        <li class="list-group-item">Title: {{title}}</li>
+        <li class="list-group-item">Representation: {{district}}</li>
+        <li class="list-group-item">Phone: {{phone}}</li>
+        <li class="list-group-item">Email: {{email}}</li>
+        <li class="list-group-item">Year Elected: {{dateElected}}</li>
+        <!-- if address exists, show it -->
+        <!-- {% if address != "None" %}
+          <li class="list-group-item">Address: {{address}}</li>
+          {% endif %} -->
+        <li class="list-group-item">Party: {{party}}</li>
+      </ul>
+    </div>
+
+    <!-- footer -->
+    <footer>
+      <p>
+        Source Code on
+        <a href="https://github.com/shaovatwit/lo-politician-data-ag">GitHub</a>
+      </p>
+    </footer>
+
+    <script>
+      src =
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js";
+      integrity =
+        "sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN";
+      crossorigin = "anonymous";
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
+      integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

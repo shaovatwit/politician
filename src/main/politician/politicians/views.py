@@ -61,7 +61,7 @@ def get_politician_info(request, name):
                 )
         #email
         if allSideInfo is not None:
-            email = listInfo[1].find("a")["href"][7:]
+            email = listInfo[1].find("a")["href"][7:].lower()
             if email != Politician.objects.get(name=inputName).email:
                 obj, created = Politician.objects.update_or_create(
                     name=inputName,
@@ -70,12 +70,11 @@ def get_politician_info(request, name):
         #full title
         title = soup.find("div", attrs={"class":"person-profile-position-title"}).text
         #district
-        # figure out district not updating
         if title is not None:
             districtIndex = title.find("District")
             atLargeIndex = title.find("At-Large")
             if districtIndex != -1:
-                district = title[districtIndex+8:].strip()
+                district = title[districtIndex:].strip()
                 print(district)
                 if district != Politician.objects.get(name=inputName).district or title != Politician.objects.get(name=inputName).title:
                     title = title[:districtIndex-2].strip()

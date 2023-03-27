@@ -1,0 +1,218 @@
+@-ms-viewport{width:device-width}
+*{
+    --header-pallete1: #C7C8ED;
+    --header-pallete2: #D0C4E4;
+    --header-pallete3: #F4AE75;
+    --header-pallete5: #795C5D;
+    --header-pallete6: #88777F;
+    --header-pallete7: #7b6b72;
+    --header-pallete8: #47343F;
+    --black-grey: #212529;
+    font-family: sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+header{
+    padding: 1em;
+    /* height: 195px; */
+    background-size: cover;
+    color: var(--header-pallete8);
+}
+header h1{
+    padding-left: 1rem;
+    
+}
+header h1 span{
+    padding-left: .2em;
+}
+header a{
+    text-decoration: none;
+}
+header#boston-header{
+    background-image: url("./images/Boston_skyline.jpg");
+}
+
+
+/* https://bootsnipp.com/snippets/X2GEX */
+nav ul#navbar-nav {
+    text-align: center;
+}
+.nav-item::after {
+    content:'';
+    display:block;
+    width:0px;
+    height:4px;
+    background:#d22d23;
+    transition: 0.2s;
+    margin-top:-10px;
+}
+.nav-item:hover::after {
+    width:100%;
+}
+.nav-item {
+    -ms-flex-preferred-size:0;
+    flex-basis:0;
+    -ms-flex-positive:1;
+    flex-grow:1;
+    text-align:center
+}
+
+.nav-link { 
+    padding: .5rem 1rem;
+    transition:0.2s;
+    display: block;
+}
+.navbar-nav {
+    display:-ms-flexbox;
+    /* idk if this is necessary^ */
+    display:flex;
+    -ms-flex-direction:column;
+    flex-direction:column;
+    padding-left:0;
+    margin-bottom:0;
+    list-style:none
+}
+.navbar {
+    position:relative;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    padding: .5rem 1.9rem;
+    margin-bottom: 4em;
+}
+.navbar-nav .nav-link {
+    color:var(--black-grey);
+    font-weight:bold;
+    font-size:18px;
+    padding-right: 0;
+    padding-left: 0;
+}
+.navbar-expand-lg .navbar-nav {
+    -ms-flex-direction:row;flex-direction:row
+}
+.navbar-nav .active > .nav-link {
+  
+    width:100%;
+    height:51px;
+    
+  border-bottom: .25rem solid transparent;
+  border-bottom-color: #d22d23;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right:.5rem;padding-left:.5rem
+}
+
+
+
+h1, h2, h3, h4{
+    color: var(--black-grey);
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+h1{
+    font-size: 2.5rem;
+}
+body{
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--black-grey);
+    text-align: left;
+    margin: 0;
+    background-color: #fff;
+}
+
+main{
+    display: inline-block;
+    padding: 1em;
+    margin: 1em 4em;
+    /* align-self: start; */
+}
+
+p{
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+aside#sidebar{
+    display: inline-block;
+    text-align: right;
+    background-color: var(--header-pallete1);
+    
+    padding-right: 1.5em;
+    list-style-type: none;
+    position: fixed;
+    margin-left: 1em;
+    right: 0;
+    height: 40%;
+    width: 20%;
+    margin-top: 1em;
+}
+aside#sidebar h2,h3{
+    text-align: right;
+    padding-top: .75em;
+    padding-bottom: 0em;
+    display: block;
+    color: var(--black-grey);
+}
+h2#maps{
+    padding-right: .5em;
+}
+aside#sidebar ul{
+    /* padding: 8px; */
+    display: block;
+}
+aside#sidebar select#department{
+    width: 80%;
+}
+aside#sidebar a{
+    text-decoration: underline dotted;
+    color: black;
+}
+aside#sidebar a:hover, main a:hover{
+    background-color: var(--header-pallete3);
+}
+aside#sidebar a:visited, main a:visited{
+    color: var(--header-pallete7);
+}
+form{
+    display: inline-block;
+}
+
+table{
+    width: auto;
+    position: relative;
+    width: 70%;
+    
+}
+table td{
+    padding-left: 1rem;
+}
+table td#biography{
+    word-wrap: normal;
+    
+}
+
+#officeSelectBoston, #officeSelectCity {
+    display: none;
+}
+
+/* footer{
+    background-color: var(--header-color);
+    padding: 1em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+} */
+
+
+
+
+

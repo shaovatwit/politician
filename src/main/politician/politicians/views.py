@@ -1,11 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 import requests
 from bs4 import BeautifulSoup
 import urllib.request as urllib
+import sumy
+from sumy.parsers.plaintext import PlaintextParser
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.summarizers.lsa import LsaSummarizer as Summarizer
+from sumy.nlp.stemmers import Stemmer
+from sumy.utils import get_stop_words
 
-from politicians.models import City, Department, Politician, Office
+from politicians.models import City, Department, Politician
+
+LANGUAGE = "english"
+SENTENCES_COUNT = 10
 
 # # Create your views here.
 # def index(request):
@@ -18,16 +27,24 @@ from politicians.models import City, Department, Politician, Office
 def homepage(request):
     return render(request, 'index.html')
 
+#########################
+#    Display FAQ        #
+#########################
+
+def faq(request):
+    return render(request, 'faq.html')
+
 #############################################################
 # Get politician's information from their website url input #
 # Campaign Link must be manually input into database....... #
 #############################################################
-govLink, phone, email, fullAddress, title, district, dateElected, bio, party = "", "","", "","", "","", "", ""
+govLink, phone, email, fullAddress, title, district, dateElected, bio, party, atLarge = "", "","", "","", "","", "", "", ""
 
-def get_politician_info(request, politician_id, name):
-    inputName = name.replace('-', ' ').strip().casefold()
-    if request.method == "GET" and inputName == Politician.objects.get(politician_id=politician_id).name.casefold().strip():
-        govLink = Politician.objects.get(politician_id=politician_id).gov_link
+def get_politician_info(request, name):
+    inputName = name.replace('-', ' ').strip().title()
+    get_object_or_404(Politician, name__exact=inputName)
+    if request.method == "GET":
+        govLink = Politician.objects.get(name=inputName).gov_link
         page = urllib.urlopen(govLink)
         soup = BeautifulSoup(page, "html.parser") #Parse
 
@@ -37,30 +54,44 @@ def get_politician_info(request, politician_id, name):
         #phone
         if allSideInfo is not None:
             phone = listInfo[0].text
-        if phone != Politician.objects.get(politician_id=politician_id).phone:
-            obj, created = Politician.objects.update_or_create(
-                politician_id = politician_id,
-                defaults={"phone": phone}
-            )
+            if phone != Politician.objects.get(name=inputName).phone:
+                obj, created = Politician.objects.update_or_create(
+                    name=inputName,
+                    defaults={"phone": phone}
+                )
         #email
         if allSideInfo is not None:
-            email = listInfo[1].find("a")["href"][7:]
-        if email != Politician.objects.get(politician_id=politician_id).email:
-            obj, created = Politician.objects.update_or_create(
-                politician_id = politician_id,
-                defaults={"email": email}
-            )
+            email = listInfo[1].find("a")["href"][7:].lower()
+            if email != Politician.objects.get(name=inputName).email:
+                obj, created = Politician.objects.update_or_create(
+                    name=inputName,
+                    defaults={"email": email}
+                )
         #full title
         title = soup.find("div", attrs={"class":"person-profile-position-title"}).text
         #district
         if title is not None:
             districtIndex = title.find("District")
-            district = title[districtIndex+8:].strip()
-        if district != Politician.objects.get(politician_id=politician_id).district:
-            obj, created = Politician.objects.update_or_create(
-                politician_id = politician_id,
-                defaults={"district": district}
-            )
+            atLargeIndex = title.find("At-Large")
+            if districtIndex != -1:
+                district = title[districtIndex:].strip()
+                print(district)
+                if district != Politician.objects.get(name=inputName).district or title != Politician.objects.get(name=inputName).title:
+                    title = title[:districtIndex-2].strip()
+                    obj, created = Politician.objects.update_or_create(
+                        name=inputName,
+                        defaults={"district": district, "title": title}
+                    )
+            #technically atLarge but all share under district column
+            if atLargeIndex != -1:
+                atLarge = title[atLargeIndex:].strip()
+                if atLarge != Politician.objects.get(name=inputName).district or title != Politician.objects.get(name=inputName).title:
+                    title = title[:atLargeIndex-2].strip()
+                    obj, created = Politician.objects.update_or_create(
+                        name=inputName,
+                        defaults={"district": atLarge, "title": title}
+                    )
+        
         #full address
         addresses = soup.find("div", class_="addr-l")
         if addresses is not None:
@@ -68,11 +99,11 @@ def get_politician_info(request, politician_id, name):
             fullAddress = soup.find("div", class_="addr-a").text + " "
             for address in addressArray:
                 fullAddress += address.text + " "
-        if fullAddress != Politician.objects.get(politician_id=politician_id).address:
-            obj, created = Politician.objects.update_or_create(
-                politician_id = politician_id,
-                defaults={"address": fullAddress}
-            )
+            if fullAddress != Politician.objects.get(name=inputName).address:
+                obj, created = Politician.objects.update_or_create(
+                    name=inputName,
+                    defaults={"address": fullAddress}
+                )
 
         #extract party and year elected
         pyAllInfo = soup.find_all("div", class_="dl-d")
@@ -80,27 +111,59 @@ def get_politician_info(request, politician_id, name):
         #party
         if pyAllInfo is not None:
             party = pyListInfo[1].text.strip()
-        if party != Politician.objects.get(politician_id=politician_id).party:
-            obj, created = Politician.objects.update_or_create(
-                politician_id = politician_id,
-                defaults={"party": party}
-            )
+            if party != Politician.objects.get(name=inputName).party:
+                obj, created = Politician.objects.update_or_create(
+                    name=inputName,
+                    defaults={"party": party}
+                )
         #year elected
         if pyAllInfo is not None:
             dateElected = pyListInfo[0].text.strip()
-        if dateElected != Politician.objects.get(politician_id=politician_id).date_elected:
-            obj, created = Politician.objects.update_or_create(
-                politician_id = politician_id,
-                defaults={"date_elected": dateElected}
-            )
+            if dateElected != Politician.objects.get(name=inputName).date_elected:
+                obj, created = Politician.objects.update_or_create(
+                    name=inputName,
+                    defaults={"date_elected": dateElected}
+                )
         #biography
         bio = soup.find("div", attrs={"person-profile-bio"}).text
-        if bio is not None and bio != Politician.objects.get(politician_id=politician_id).biography:
+        parser = PlaintextParser.from_string(bio, Tokenizer(LANGUAGE))
+        stemmer = Stemmer(LANGUAGE)
+
+        summarizer = Summarizer(stemmer)
+        summarizer.stop_words = get_stop_words(LANGUAGE)
+        bioSum = ""
+        for sentence in summarizer(parser.document, SENTENCES_COUNT):
+            bioSum += str(sentence) + " "
+        if bio != Politician.objects.get(name=inputName).biography:
             obj, created = Politician.objects.update_or_create(
-                politician_id = politician_id,
-                defaults={"biography": bio}
+                name=inputName,
+                defaults={"biography": bioSum}
             )
-            
+
+        #extract image
+        image = soup.find("div", class_="person-profile-photo").find("img")
+        image = "https://www.boston.gov" + image['src']
+
+        return render(request, "politician.html", { #render to the index.html with the contents
+            "name": inputName,
+            "district": Politician.objects.get(name=inputName).district,
+            "title": Politician.objects.get(name=inputName).title,
+            "bio": Politician.objects.get(name=inputName).biography,
+            "phone": Politician.objects.get(name=inputName).phone,
+            "email": Politician.objects.get(name=inputName).email,
+            "dateElected": Politician.objects.get(name=inputName).date_elected,
+            "address": Politician.objects.get(name=inputName).address,
+            "party": Politician.objects.get(name=inputName).party,
+            "image": image,
+        })
+    return render(request, "error.html")
+
+###########################################################
+# Politician Dropdown Menu                                #
+###########################################################
+def dropdown(request):
+    check_council_info(request) #check if council info is up to date
+    if request.method == "GET":
         #pulling names from db and then storing into list for dropdown menu aspect.
         names, splitNames = [], []
         allNames = Politician.objects.values("name")
@@ -108,39 +171,48 @@ def get_politician_info(request, politician_id, name):
             names.append(name['name'].strip())
         splitNames = [val.replace(" ", "-") for val in names]
         #pulling the ids from db for dropdown menu url
-        allID = Politician.objects.values("politician_id")
+        allID = Politician.objects.values("id")
         ids = []
         for id in allID:
-            ids.append(id['politician_id'])
+            ids.append(id['id'])
         #pulling links from db and then storing into list for dropdown menu aspect.
         links = []
         allLinks = Politician.objects.values("gov_link")
         for link in allLinks:
             links.append(link['gov_link'].strip())
         zipped = zip(names, links, splitNames, ids)
+        return render(request, "index.html", {
+            "zipped": zipped})
+    return render(request, "error.html")
 
-        return render(request, "test.html", { #render to the index.html with the contents
-            "zipped": zipped,
-            "name": Politician.objects.get(politician_id=politician_id).name,
-            "district": Politician.objects.get(politician_id=politician_id).district,
-            "bio": Politician.objects.get(politician_id=politician_id).biography,
-            "phone": Politician.objects.get(politician_id=politician_id).phone,
-            "email": Politician.objects.get(politician_id=politician_id).email,
-            "dateElected": Politician.objects.get(politician_id=politician_id).date_elected,
-            "address": Politician.objects.get(politician_id=politician_id).address,
-            "party": Politician.objects.get(politician_id=politician_id).party,
-        })
-    return render(request, "test2.html")
+###########################################################
+# Populate cities                                         #
+###########################################################
+
+def populate_cities(request):
+    if request.method == "GET":
+        citiesLink = "link for cities"
+        page = urllib.urlopen(citiesLink)
+        soup = BeautifulSoup(page, "html.parser") #Parse
+        #Get name of the cities
+        main = soup.find("section", attrs={"id":"content"})
+        
+        for name, link in zip(names, links):
+            obj, created = Politician.objects.get_or_create(
+                name=name.text.strip(),
+                
+            )
+        return render(request, "index.html")
+    return render(request, "error.html")
 
 ###########################################################
 # Get departments from the boston.gov website             #
 ###########################################################
 
-def get_departments(request, name, city_id, department_id):
+def get_departments(request, name):
     inputName = name.replace('-', ' ').strip()
-    if City.objects.filter(city_id=city_id).first() is None:
-        return render(request, "test2.html")
-    if request.method == "GET" and inputName == City.objects.get(city_id=city_id).name.casefold().strip():
+    get_object_or_404(City, name__exact=inputName)
+    if request.method == "GET":
         deptLink = urllib.urlopen('https://www.boston.gov/departments')
 
         soup = BeautifulSoup(deptLink, "html.parser")
@@ -166,7 +238,7 @@ def get_departments(request, name, city_id, department_id):
                     name = dept,
                     phone = num[0:13],
                     url = "https://www.boston.gov" + link["href"],
-                    city_id = City.objects.get(city_id=city_id).city_id
+                    city_id = City.objects.get(name=inputName).name
                 )
     return render(request, "test.html")
 
@@ -185,7 +257,7 @@ def check_council_info(request):
         links = main.find_all("a", attrs={"class":"cdp-l"}, href=True)
         for name, link in zip(names, links):
             obj, created = Politician.objects.get_or_create(
-                name=name.text,
+                name=name.text.strip(),
                 gov_link="https://www.boston.gov" + link["href"]
             )
-    return render(request, "test.html")
+    return render(request, "index.html")

@@ -1,2 +1,2 @@
-# lo-politician-data-ag
+# Politician
 Local Politician Data Aggregator

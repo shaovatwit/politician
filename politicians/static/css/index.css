@@ -1,0 +1,173 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("https://cdn.britannica.com/66/93866-050-64944EF0/Skyline-Boston.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  font-family: "Roboto", sans-serif;
+}
+
+/* .navbar */
+
+#navbarNav {
+  margin-left: auto;
+}
+
+.navbar-nav {
+  margin-left: 1rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.navbar {
+  padding: 1.5rem 2rem;
+}
+
+/* get started! */
+
+.container {
+  border: 1px solid darkgrey;
+  border-style: solid;
+  border-radius: 0.3rem;
+  background-color: rgba(212, 205, 205, 0.795);
+  width: 50%;
+  position: relative;
+  margin-top: 6rem;
+  padding-bottom: 3rem;
+}
+
+#get-started {
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#get-started-subtitle {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 1rem;
+  /* padding: 0rem 0rem 0rem 0.1rem; */
+  text-align: center;
+}
+
+/* function for city and office */
+
+.show {
+  display: inline-block;
+}
+
+li a {
+  text-decoration: none;
+  color: #2d2f31;
+}
+
+label {
+  width: 20rem;
+  margin-left: 12rem;
+  display: none;
+}
+
+span {
+  max-width: 100%;
+  padding: 20px;
+  background: #2d2f31;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  display: block;
+}
+
+span::after {
+  float: right;
+  content: "+";
+}
+
+.dropdown {
+  clear: both;
+  width: 100%;
+  height: 0px;
+  overflow: hidden;
+  text-align: center;
+  left: 10rem;
+  transition: height 0.4s ease;
+}
+
+.dropdown li {
+  padding: 10px;
+  background-color: rgba(212, 205, 205, 0.901);
+  width: 48.3%;
+}
+
+#city {
+  position: absolute;
+  opacity: 0;
+  height: 0px;
+}
+
+#city:checked + .dropdown {
+  height: 100px;
+}
+
+#city:checked + .dropdown li:hover {
+  background-color: #1f6c86a9;
+  cursor: pointer;
+}
+
+#office {
+  position: absolute;
+  opacity: 0;
+  height: 0px;
+}
+
+#office:checked + .dropdown {
+  height: 100%;
+}
+
+#office:checked + .dropdown li:hover {
+  background-color: #1f6c86a9;
+  cursor: pointer;
+}
+/* footer */
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: rgb(199, 200, 234);
+  color: black;
+  text-align: center;
+}
+
+footer p {
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+
+footer a {
+  color: #4a8dd1;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: black;
+  text-decoration: none;
+}

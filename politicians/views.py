@@ -330,13 +330,14 @@ def get_mayor(request):
             image=image,
             date_elected=dateElected,
         )
-    return check_council_info(request)
+
 
 ###########################################################
 # Get city council information and adds to database.      #
 ###########################################################
 
 def check_council_info(request):
+    get_mayor(request)
     if request.method == "GET":
         councilLink = "https://www.boston.gov/departments/city-council"
         page = urllib.urlopen(councilLink)

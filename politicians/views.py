@@ -154,7 +154,7 @@ def get_politician_info(request, name):
             "dateElected": Politician.objects.get(name=inputName).date_elected,
             "address": Politician.objects.get(name=inputName).address,
             "party": Politician.objects.get(name=inputName).party,
-            "image": image,
+            "image": Politician.objects.get(name=name).name,
         })
     return render(request, "error.html")
 
@@ -241,6 +241,96 @@ def get_departments(request, name):
                     city_id = City.objects.get(name=inputName).name
                 )
     return render(request, "test.html")
+
+###########################################################
+# Get mayor info then call into check_council_info to     #
+# store into the database                                 #
+###########################################################
+
+def get_mayor(request):
+    if request.method == "GET":
+        mayorLink = "https://www.boston.gov/departments/mayors-office/michelle-wu"
+        page = urllib.urlopen(mayorLink)
+        soup = BeautifulSoup(page, "html.parser")
+
+        #biography
+        bio = soup.find("div", attrs={"person-profile-bio"}).text
+        parser = PlaintextParser.from_string(bio, Tokenizer(LANGUAGE))
+        stemmer = Stemmer(LANGUAGE)
+
+        summarizer = Summarizer(stemmer)
+        summarizer.stop_words = get_stop_words(LANGUAGE)
+        bioSum = ""
+        for sentence in summarizer(parser.document, SENTENCES_COUNT):
+            bioSum += str(sentence) + " "
+
+        #title
+        title = soup.find("div", class_="person-profile-title").text
+
+        #extract image
+        image = soup.find("div", class_="person-profile-photo").find("img")
+        image = "https://www.boston.gov" + image['src']
+
+        #name
+        name = soup.find("h1", class_="person-profile-display-name").text
+
+        #date elected
+        dateElected = soup.find("div", class_="dl-d").text
+
+        #extract phone and email info into an array
+        allSideInfo = soup.find_all("span", class_="sb-d")
+        listInfo = [x for x in allSideInfo]
+        #phone
+        if allSideInfo is not None:
+            phone = listInfo[0].text
+            if phone != Politician.objects.get(name=name).phone:
+                obj, created = Politician.objects.update_or_create(
+                    name=name,
+                    defaults={"phone": phone}
+                )
+        #email
+        if allSideInfo is not None:
+            email = listInfo[1].find("a")["href"][7:].lower()
+            if email != Politician.objects.get(name=name).email:
+                obj, created = Politician.objects.update_or_create(
+                    name=name,
+                    defaults={"email": email}
+                )
+
+        #full address
+        addresses = soup.find("div", class_="addr-l")
+        if addresses is not None:
+            addressArray = addresses.find_all("span", recursive=False)
+            fullAddress = soup.find("div", class_="addr-a").text + " "
+            for address in addressArray:
+                fullAddress += address.text + " "
+            if fullAddress != Politician.objects.get(name=name).address:
+                obj, created = Politician.objects.update_or_create(
+                    name=name,
+                    defaults={"address": fullAddress}
+                )
+
+        #extract party and year elected
+        pyAllInfo = soup.find_all("div", class_="dl-d")
+        pyListInfo = [x for x in pyAllInfo]
+        #party
+        if pyAllInfo is not None:
+            party = pyListInfo[1].text.strip()
+            if party != Politician.objects.get(name=inputName).party:
+                obj, created = Politician.objects.update_or_create(
+                    name=name,
+                    defaults={"party": party}
+                )
+
+        obj, created = Politician.objects.get_or_create(
+            name=name,
+            biography=bioSum,
+            gov_link=mayorLink,
+            title=title,
+            image=image,
+            date_elected=dateElected,
+        )
+    return check_council_info(request)
 
 ###########################################################
 # Get city council information and adds to database.      #

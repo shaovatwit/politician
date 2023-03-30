@@ -13,6 +13,7 @@ class Politician(models.Model):
         biography = models.CharField(max_length=10000, null=True)
         district = models.CharField(max_length=100, null=True)
         title = models.CharField(max_length=100, null=True, blank=True)
+        image = models.CharField(max_length=1000, null=True, blank=True)
 
 class City(models.Model):
         name = models.CharField(max_length=100, null=True, blank=True)

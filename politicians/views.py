@@ -265,7 +265,7 @@ def get_mayor(request):
             bioSum += str(sentence) + " "
 
         #title
-        title = soup.find("div", class_="person-profile-title").text
+        title = soup.find("div", class_="person-profile-position-title").text
 
         #extract image
         image = soup.find("div", class_="person-profile-photo").find("img")

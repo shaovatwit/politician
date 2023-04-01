@@ -274,9 +274,6 @@ def get_mayor(request):
         #name
         name = soup.find("h1", class_="person-profile-display-name").text
 
-        #date elected
-        dateElected = soup.find("div", class_="dl-d").text
-
         #extract phone and email info into an array
         allSideInfo = soup.find_all("span", class_="sb-d")
         listInfo = [x for x in allSideInfo]
@@ -291,10 +288,13 @@ def get_mayor(request):
         fullAddress = soup.find("div", class_="addr-a").text + " "
         for address in addressArray:
             fullAddress += address.text + " "
-
+        
         #extract party and year elected
         pyAllInfo = soup.find_all("div", class_="dl-d")
         pyListInfo = [x for x in pyAllInfo]
+
+        #date elected
+        dateElected = pyListInfo[0].text.strip()
 
         #party
         party = pyListInfo[1].text.strip()

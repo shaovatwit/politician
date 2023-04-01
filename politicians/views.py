@@ -281,46 +281,24 @@ def get_mayor(request):
         allSideInfo = soup.find_all("span", class_="sb-d")
         listInfo = [x for x in allSideInfo]
         #phone
-        if allSideInfo is not None:
-            phone = listInfo[0].text
-            if phone != Politician.objects.get(name=name).phone:
-                obj, created = Politician.objects.update_or_create(
-                    name=name,
-                    defaults={"phone": phone}
-                )
+        phone = listInfo[0].text
         #email
-        if allSideInfo is not None:
-            email = listInfo[1].find("a")["href"][7:].lower()
-            if email != Politician.objects.get(name=name).email:
-                obj, created = Politician.objects.update_or_create(
-                    name=name,
-                    defaults={"email": email}
-                )
+        email = listInfo[1].find("a")["href"][7:].lower()
 
         #full address
         addresses = soup.find("div", class_="addr-l")
-        if addresses is not None:
-            addressArray = addresses.find_all("span", recursive=False)
-            fullAddress = soup.find("div", class_="addr-a").text + " "
-            for address in addressArray:
-                fullAddress += address.text + " "
-            if fullAddress != Politician.objects.get(name=name).address:
-                obj, created = Politician.objects.update_or_create(
-                    name=name,
-                    defaults={"address": fullAddress}
-                )
+        addressArray = addresses.find_all("span", recursive=False)
+        fullAddress = soup.find("div", class_="addr-a").text + " "
+        for address in addressArray:
+            fullAddress += address.text + " "
 
         #extract party and year elected
         pyAllInfo = soup.find_all("div", class_="dl-d")
         pyListInfo = [x for x in pyAllInfo]
+
         #party
-        if pyAllInfo is not None:
-            party = pyListInfo[1].text.strip()
-            if party != Politician.objects.get(name=inputName).party:
-                obj, created = Politician.objects.update_or_create(
-                    name=name,
-                    defaults={"party": party}
-                )
+        party = pyListInfo[1].text.strip()
+
 
         obj, created = Politician.objects.get_or_create(
             name=name,
@@ -329,6 +307,10 @@ def get_mayor(request):
             title=title,
             image=image,
             date_elected=dateElected,
+            address=fullAddress,
+            phone=phone,
+            email=email,
+            party=party
         )
 
 

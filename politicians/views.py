@@ -75,7 +75,6 @@ def get_politician_info(request, name):
             atLargeIndex = title.find("At-Large")
             if districtIndex != -1:
                 district = title[districtIndex:].strip()
-                print(district)
                 if district != Politician.objects.get(name=inputName).district or title != Politician.objects.get(name=inputName).title:
                     title = title[:districtIndex-2].strip()
                     obj, created = Politician.objects.update_or_create(
@@ -143,6 +142,11 @@ def get_politician_info(request, name):
         #extract image
         image = soup.find("div", class_="person-profile-photo").find("img")
         image = "https://www.boston.gov" + image['src']
+        if image != Politician.objects.get(name=inputName).image:
+            obj, created = Politician.objects.update_or_create(
+                name=inputName,
+                defaults={"image": image}
+            )
 
         return render(request, "politician.html", { #render to the index.html with the contents
             "name": inputName,
@@ -154,7 +158,7 @@ def get_politician_info(request, name):
             "dateElected": Politician.objects.get(name=inputName).date_elected,
             "address": Politician.objects.get(name=inputName).address,
             "party": Politician.objects.get(name=inputName).party,
-            "image": Politician.objects.get(name=name).name,
+            "image": Politician.objects.get(name=inputName).image,
         })
     return render(request, "error.html")
 
@@ -272,7 +276,7 @@ def get_mayor(request):
         image = "https://www.boston.gov" + image['src']
 
         #name
-        name = soup.find("h1", class_="person-profile-display-name").text
+        name = soup.find("h1", class_="person-profile-display-name").text.strip()
 
         #extract phone and email info into an array
         allSideInfo = soup.find_all("span", class_="sb-d")
@@ -295,6 +299,7 @@ def get_mayor(request):
 
         #date elected
         dateElected = pyListInfo[0].text.strip()
+        print(dateElected)
 
         #party
         party = pyListInfo[1].text.strip()
